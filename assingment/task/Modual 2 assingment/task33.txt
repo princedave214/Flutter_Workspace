@@ -1,0 +1,26 @@
+dependencies:
+  qr: ^3.0.1
+
+
+
+
+
+
+
+
+import 'package:qr/qr.dart';
+
+void main() {
+  final data = "https://example.com";
+  final qrCode = QrCode(4, QrErrorCorrectLevel.L); // version 4, Low error correction
+  qrCode.addData(data);
+  qrCode.make();
+
+  for (int x = 0; x < qrCode.moduleCount; x++) {
+    for (int y = 0; y < qrCode.moduleCount; y++) {
+      final isBlack = qrCode.isDark(x, y);
+      stdout.write(isBlack ? '██' : '  '); // double block for square aspect
+    }
+    stdout.writeln();
+  }
+}

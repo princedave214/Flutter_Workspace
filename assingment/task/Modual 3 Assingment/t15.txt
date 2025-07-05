@@ -1,0 +1,32 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(AssetImageApp());
+
+class AssetImageApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: LocalImageScreen());
+  }
+}
+
+class LocalImageScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Asset Image BoxFit")),
+      body: Column(
+        children: [
+          Expanded(
+            child: Image.asset('assets/sample.jpg', fit: BoxFit.cover),
+          ),
+          Expanded(
+            child: Image.asset('assets/sample.jpg', fit: BoxFit.contain),
+          ),
+          Expanded(
+            child: Image.asset('assets/sample.jpg', fit: BoxFit.fill),
+          ),
+        ],
+      ),
+    );
+  }
+}

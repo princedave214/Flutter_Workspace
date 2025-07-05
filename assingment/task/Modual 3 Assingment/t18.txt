@@ -1,0 +1,57 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(FeedbackFormApp());
+
+class FeedbackFormApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: FeedbackForm());
+  }
+}
+
+class FeedbackForm extends StatefulWidget {
+  @override
+  _FeedbackFormState createState() => _FeedbackFormState();
+}
+
+class _FeedbackFormState extends State<FeedbackForm> {
+  final nameController = TextEditingController();
+  final commentsController = TextEditingController();
+  String selectedCategory = "Bug";
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Feedback Form")),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            TextField(
+              controller: nameController,
+              decoration: InputDecoration(labelText: 'Your Name'),
+            ),
+            TextField(
+              controller: commentsController,
+              decoration: InputDecoration(labelText: 'Comments'),
+            ),
+            DropdownButton<String>(
+              value: selectedCategory,
+              items: ['Bug', 'Feature Request', 'Other'].map((String value) {
+                return DropdownMenuItem(value: value, child: Text(value));
+              }).toList(),
+              onChanged: (val) => setState(() => selectedCategory = val!),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              child: Text("Submit Feedback"),
+              onPressed: () {
+                print("Feedback: ${nameController.text}, $selectedCategory");
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

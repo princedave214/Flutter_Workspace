@@ -1,0 +1,11 @@
+List<double> processList(List<int> list, double Function(int) operation) {
+  return list.map(operation).toList();
+}
+
+void task30() {
+  List<int> numbers = [1, 2, 3, 4, 5];
+
+  print("Squares: ${processList(numbers, (x) => x * x)}");
+  print("Cubes: ${processList(numbers, (x) => x * x * x)}");
+  print("Halves: ${processList(numbers, (x) => x / 2)}");
+}

@@ -1,0 +1,11 @@
+void task15() {
+  String input = "flutter";
+  Map<String, int> frequency = {};
+
+  for (int i = 0; i < input.length; i++) {
+    String char = input[i];
+    frequency[char] = (frequency[char] ?? 0) + 1;
+  }
+
+  print("Character Frequencies: $frequency");
+}

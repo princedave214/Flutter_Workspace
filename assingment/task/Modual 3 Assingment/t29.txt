@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(StackOverlayApp());
+
+class StackOverlayApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: OverlayImageScreen());
+  }
+}
+
+class OverlayImageScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Stack Overlay")),
+      body: Center(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.network(
+              "https://picsum.photos/300/200",
+              width: 300,
+              height: 200,
+              fit: BoxFit.cover,
+            ),
+            Container(
+              width: 300,
+              height: 200,
+              color: Colors.black.withOpacity(0.4),
+            ),
+            Text(
+              "Overlay Text",
+              style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

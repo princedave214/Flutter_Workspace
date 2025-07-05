@@ -1,0 +1,24 @@
+import 'dart:io';
+
+void task24() {
+  stdout.write("Enter integers separated by space: ");
+  String? input = stdin.readLineSync();
+
+  if (input != null) {
+    List<String> parts = input.split(" ");
+    List<int> numbers = [];
+
+    for (var part in parts) {
+      try {
+        int number = int.parse(part);
+        numbers.add(number);
+      } catch (e) {
+        print("Invalid input '$part' skipped.");
+      }
+    }
+
+    print("Valid Integers: $numbers");
+  } else {
+    print("No input received.");
+  }
+}

@@ -1,0 +1,18 @@
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+Future<void> task26() async {
+  final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/1");
+
+  try {
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      print("Data loaded: $data");
+    } else {
+      print("Failed to load data. Status: ${response.statusCode}");
+    }
+  } catch (e) {
+    print("Error fetching data: $e");
+  }
+}

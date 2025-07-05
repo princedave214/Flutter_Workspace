@@ -1,0 +1,54 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(ProductListApp());
+
+class ProductListApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: ProductListScreen());
+  }
+}
+
+class ProductListScreen extends StatelessWidget {
+  final List<Map<String, dynamic>> products = [
+    {"name": "Phone", "price": 699, "image": "https://picsum.photos/200?1"},
+    {"name": "Watch", "price": 299, "image": "https://picsum.photos/200?2"},
+    {"name": "Laptop", "price": 999, "image": "https://picsum.photos/200?3"},
+    {"name": "Camera", "price": 499, "image": "https://picsum.photos/200?4"},
+    {"name": "Tablet", "price": 399, "image": "https://picsum.photos/200?5"},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Product Listing")),
+      body: Container(
+        height: 250,
+        padding: EdgeInsets.all(8),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: products.length,
+          itemBuilder: (context, index) {
+            final product = products[index];
+            return Container(
+              width: 180,
+              margin: EdgeInsets.only(right: 12),
+              child: Card(
+                child: Column(
+                  children: [
+                    Image.network(product["image"], height: 120, fit: BoxFit.cover),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(product["name"], style: TextStyle(fontSize: 16)),
+                    ),
+                    Text("\$${product["price"]}", style: TextStyle(color: Colors.green)),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}

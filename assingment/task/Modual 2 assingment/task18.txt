@@ -1,0 +1,35 @@
+class BankAccount {
+  String accountNumber;
+  String accountHolder;
+  double balance;
+
+  BankAccount(this.accountNumber, this.accountHolder, this.balance);
+
+  void deposit(double amount) {
+    if (amount > 0) {
+      balance += amount;
+      print("Deposited ₹$amount. New Balance: ₹$balance");
+    }
+  }
+
+  void withdraw(double amount) {
+    if (amount > 0 && amount <= balance) {
+      balance -= amount;
+      print("Withdrew ₹$amount. New Balance: ₹$balance");
+    } else {
+      print("Insufficient funds or invalid amount.");
+    }
+  }
+
+  void checkBalance() {
+    print("Account Balance: ₹$balance");
+  }
+}
+
+void task18() {
+  BankAccount account = BankAccount("123456", "Aryan Faldu", 5000);
+  account.deposit(1000);
+  account.withdraw(2000);
+  account.withdraw(6000); // Will show error
+  account.checkBalance();
+}

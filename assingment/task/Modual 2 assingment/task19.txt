@@ -1,0 +1,43 @@
+class Vehicle {
+  String type;
+  String fuelType;
+  int maxSpeed;
+
+  Vehicle(this.type, this.fuelType, this.maxSpeed);
+
+  void displayInfo() {
+    print("Type: $type");
+    print("Fuel Type: $fuelType");
+    print("Max Speed: $maxSpeed km/h");
+  }
+}
+
+class Car extends Vehicle {
+  Car(String fuelType, int maxSpeed)
+      : super("Car", fuelType, maxSpeed);
+
+  @override
+  void displayInfo() {
+    print("This is a Car:");
+    super.displayInfo();
+  }
+}
+
+class Bike extends Vehicle {
+  Bike(String fuelType, int maxSpeed)
+      : super("Bike", fuelType, maxSpeed);
+
+  @override
+  void displayInfo() {
+    print("This is a Bike:");
+    super.displayInfo();
+  }
+}
+
+void task19() {
+  Car car = Car("Petrol", 220);
+  car.displayInfo();
+
+  Bike bike = Bike("Electric", 120);
+  bike.displayInfo();
+}

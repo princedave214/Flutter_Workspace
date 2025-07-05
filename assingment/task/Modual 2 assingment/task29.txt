@@ -1,0 +1,11 @@
+void task29() {
+  List<int> list1 = [1, 2, 3];
+  List<int> list2 = [3, 4, 5];
+  List<int> list3 = [5, 6, 7];
+
+  List<int> combined = [...list1, ...list2, ...list3];
+  List<int> uniqueSorted = combined.toSet().toList();
+  uniqueSorted.sort();
+
+  print("Combined Unique Sorted List: $uniqueSorted");
+}

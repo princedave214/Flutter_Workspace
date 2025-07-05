@@ -1,0 +1,64 @@
+import 'package:flutter/material.dart';
+import 'dart:async';
+
+void main() => runApp(CarouselApp());
+
+class CarouselApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: CarouselScreen());
+  }
+}
+
+class CarouselScreen extends StatefulWidget {
+  @override
+  _CarouselScreenState createState() => _CarouselScreenState();
+}
+
+class _CarouselScreenState extends State<CarouselScreen> {
+  final PageController _controller = PageController();
+  int _currentPage = 0;
+  Timer? _timer;
+
+  final List<String> images = [
+    'https://picsum.photos/400?image=1',
+    'https://picsum.photos/400?image=2',
+    'https://picsum.photos/400?image=3',
+    'https://picsum.photos/400?image=4',
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
+      _currentPage++;
+      if (_currentPage >= images.length) _currentPage = 0;
+      _controller.animateToPage(
+        _currentPage,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeIn,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Image Carousel")),
+      body: PageView.builder(
+        controller: _controller,
+        itemCount: images.length,
+        itemBuilder: (context, index) {
+          return Image.network(images[index], fit: BoxFit.cover);
+        },
+      ),
+    );
+  }
+}

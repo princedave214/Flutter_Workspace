@@ -1,0 +1,52 @@
+class Product {
+  String name;
+  double price;
+
+  Product(this.name, this.price);
+}
+
+class Cart {
+  List<Product> items = [];
+
+  void addProduct(Product product) {
+    items.add(product);
+    print("${product.name} added to cart.");
+  }
+
+  double getTotalPrice() {
+    return items.fold(0, (sum, item) => sum + item.price);
+  }
+
+  void viewCart() {
+    print("Cart Contents:");
+    for (var item in items) {
+      print("- ${item.name}: ₹${item.price}");
+    }
+    print("Total: ₹${getTotalPrice()}");
+  }
+}
+
+class Order {
+  Cart cart;
+
+  Order(this.cart);
+
+  void checkout() {
+    print("Order Placed!");
+    cart.viewCart();
+  }
+}
+
+void task20() {
+  Product p1 = Product("Laptop", 60000);
+  Product p2 = Product("Headphones", 2000);
+  Product p3 = Product("Mouse", 500);
+
+  Cart cart = Cart();
+  cart.addProduct(p1);
+  cart.addProduct(p2);
+  cart.addProduct(p3);
+
+  Order order = Order(cart);
+  order.checkout();
+}

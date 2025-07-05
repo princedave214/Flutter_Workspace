@@ -1,0 +1,37 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(NameListApp());
+
+class NameListApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: NameListScreen(),
+    );
+  }
+}
+
+class NameListScreen extends StatelessWidget {
+  final List<String> names = [
+    "Aryan", "Divya", "Kiran", "Soham", "Sneha",
+    "John", "Ayesha", "Neha", "Rahul", "Pooja"
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Tap a Name")),
+      body: ListView.builder(
+        itemCount: names.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(names[index]),
+            onTap: () {
+              print("Name tapped: ${names[index]}");
+            },
+          );
+        },
+      ),
+    );
+  }
+}

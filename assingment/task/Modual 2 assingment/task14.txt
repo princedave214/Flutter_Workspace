@@ -1,0 +1,20 @@
+void task14() {
+  List<String> words = ['apple', 'banana', 'apple', 'orange', 'banana', 'grape'];
+
+  Set<String> uniqueWords = words.toSet();
+
+  List<String> sortedWords = uniqueWords.toList();
+
+  // Simple alphabetical sort using Bubble Sort
+  for (int i = 0; i < sortedWords.length - 1; i++) {
+    for (int j = 0; j < sortedWords.length - i - 1; j++) {
+      if (sortedWords[j].compareTo(sortedWords[j + 1]) > 0) {
+        String temp = sortedWords[j];
+        sortedWords[j] = sortedWords[j + 1];
+        sortedWords[j + 1] = temp;
+      }
+    }
+  }
+
+  print("Unique Sorted Words: $sortedWords");
+}

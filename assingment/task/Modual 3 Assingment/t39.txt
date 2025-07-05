@@ -1,0 +1,42 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+void main() {
+  runApp(ChangeNotifierProvider(
+    create: (_) => ThemeProvider(),
+    child: MyThemeApp(),
+  ));
+}
+
+class ThemeProvider with ChangeNotifier {
+  bool isDark = false;
+
+  ThemeMode get currentTheme => isDark ? ThemeMode.dark : ThemeMode.light;
+
+  void toggleTheme() {
+    isDark = !isDark;
+    notifyListeners();
+  }
+}
+
+class MyThemeApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
+    return MaterialApp(
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: themeProvider.currentTheme,
+      home: Scaffold(
+        appBar: AppBar(title: Text("Theme Switcher")),
+        body: Center(
+          child: SwitchListTile(
+            title: Text("Dark Mode"),
+            value: themeProvider.isDark,
+            onChanged: (_) => themeProvider.toggleTheme(),
+          ),
+        ),
+      ),
+    );
+  }
+}

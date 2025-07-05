@@ -1,0 +1,47 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(ExpandCollapseApp());
+
+class ExpandCollapseApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: ExpandableSection());
+  }
+}
+
+class ExpandableSection extends StatefulWidget {
+  @override
+  _ExpandableSectionState createState() => _ExpandableSectionState();
+}
+
+class _ExpandableSectionState extends State<ExpandableSection> {
+  bool expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Animated Expand/Collapse")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              child: Text(expanded ? "Collapse" : "Expand"),
+              onPressed: () => setState(() => expanded = !expanded),
+            ),
+            AnimatedContainer(
+              duration: Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+              height: expanded ? 200 : 0,
+              width: 300,
+              color: Colors.blue,
+              child: expanded
+                  ? Center(child: Text("Expanded content", style: TextStyle(color: Colors.white)))
+                  : null,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

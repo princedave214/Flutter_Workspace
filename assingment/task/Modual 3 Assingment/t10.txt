@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(ShoppingCartApp());
+
+class ShoppingCartApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: CartScreen());
+  }
+}
+
+class CartScreen extends StatefulWidget {
+  @override
+  _CartScreenState createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  int cartCount = 0;
+
+  void addToCart() {
+    setState(() {
+      cartCount++;
+    });
+  }
+
+  final items = ["Apples", "Bananas", "Oranges", "Grapes", "Watermelon"];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Shopping Cart ($cartCount)"),
+      ),
+      body: ListView.builder(
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(items[index]),
+            trailing: ElevatedButton(
+              onPressed: addToCart,
+              child: Text("Add to Cart"),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}

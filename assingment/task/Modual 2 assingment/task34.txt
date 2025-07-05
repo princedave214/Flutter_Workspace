@@ -1,0 +1,21 @@
+dependencies:
+  path: ^1.9.0
+
+
+
+
+
+
+import 'package:path/path.dart' as p;
+
+void main() {
+  String filePath = '/home/user/documents/report.pdf';
+
+  String dir = p.dirname(filePath);
+  String filename = p.basename(filePath);
+  String extension = p.extension(filePath);
+
+  print('Directory: $dir');
+  print('Filename: $filename');
+  print('Extension: $extension');
+}

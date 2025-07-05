@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(NetworkImageSwitcherApp());
+
+class NetworkImageSwitcherApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: ImageSwitcherScreen());
+  }
+}
+
+class ImageSwitcherScreen extends StatefulWidget {
+  @override
+  _ImageSwitcherScreenState createState() => _ImageSwitcherScreenState();
+}
+
+class _ImageSwitcherScreenState extends State<ImageSwitcherScreen> {
+  int imageIndex = 0;
+  final List<String> imageUrls = [
+    'https://picsum.photos/250?image=9',
+    'https://picsum.photos/250?image=11',
+    'https://picsum.photos/250?image=15',
+  ];
+
+  void switchImage() {
+    setState(() {
+      imageIndex = (imageIndex + 1) % imageUrls.length;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Network Image Switcher")),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.network(imageUrls[imageIndex]),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: switchImage,
+            child: Text("Change Image"),
+          ),
+        ],
+      ),
+    );
+  }
+}

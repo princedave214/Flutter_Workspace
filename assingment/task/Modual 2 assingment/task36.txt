@@ -1,0 +1,16 @@
+import 'dart:io';
+
+void main() async {
+  final file = File('sample.txt');
+
+  try {
+    // Write to file
+    await file.writeAsString('Hello Dart File Handling!\nWelcome to async IO.');
+
+    // Read from file
+    String contents = await file.readAsString();
+    print('File Contents:\n$contents');
+  } catch (e) {
+    print('Error occurred: $e');
+  }
+}

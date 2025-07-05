@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(AvatarBadgeApp());
+
+class AvatarBadgeApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: AvatarBadgeWidget(
+            imageUrl: "https://i.pravatar.cc/150?img=5",
+            isOnline: true,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AvatarBadgeWidget extends StatelessWidget {
+  final String imageUrl;
+  final bool isOnline;
+
+  AvatarBadgeWidget({required this.imageUrl, required this.isOnline});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        CircleAvatar(radius: 40, backgroundImage: NetworkImage(imageUrl)),
+        Positioned(
+          bottom: 4,
+          right: 4,
+          child: Container(
+            width: 15,
+            height: 15,
+            decoration: BoxDecoration(
+              color: isOnline ? Colors.green : Colors.grey,
+              shape: BoxShape.circle,
+              border: Border.all(color: Colors.white, width: 2),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

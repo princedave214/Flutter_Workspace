@@ -1,0 +1,16 @@
+import 'package:flutter/material.dart';
+import 'home_screen.dart';
+import 'settings_screen.dart';
+
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Profile")),
+      drawer: AppDrawer(current: 'profile'),
+      body: Center(child: Text("Welcome to the Profile Screen")),
+    );
+  }
+}

@@ -1,0 +1,5 @@
+Future<void> task25() async {
+  print("Loading...");
+  await Future.delayed(Duration(seconds: 3));
+  print("Operation completed.");
+}

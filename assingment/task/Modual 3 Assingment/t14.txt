@@ -1,0 +1,40 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(PhotoGalleryApp());
+
+class PhotoGalleryApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: PhotoGalleryScreen());
+  }
+}
+
+class PhotoGalleryScreen extends StatelessWidget {
+  final List<String> imageUrls = List.generate(
+    20,
+    (index) => 'https://picsum.photos/200/200?random=$index',
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Photo Gallery")),
+      body: GridView.builder(
+        padding: EdgeInsets.all(8),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3, // 3 images per row
+          crossAxisSpacing: 4,
+          mainAxisSpacing: 4,
+        ),
+        itemCount: imageUrls.length,
+        itemBuilder: (context, index) {
+          return FadeInImage.assetNetwork(
+            placeholder: 'assets/loading.gif', // Add a loading.gif in your assets
+            image: imageUrls[index],
+            fit: BoxFit.cover,
+          );
+        },
+      ),
+    );
+  }
+}

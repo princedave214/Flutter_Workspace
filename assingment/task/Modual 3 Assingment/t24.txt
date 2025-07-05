@@ -1,0 +1,42 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(BottomNavApp());
+
+class BottomNavApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: BottomNavHome());
+  }
+}
+
+class BottomNavHome extends StatefulWidget {
+  @override
+  _BottomNavHomeState createState() => _BottomNavHomeState();
+}
+
+class _BottomNavHomeState extends State<BottomNavHome> {
+  int selectedIndex = 0;
+
+  final pages = [
+    Center(child: Text("News Page")),
+    Center(child: Text("Messages Page")),
+    Center(child: Text("Profile Page")),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Bottom Navigation")),
+      body: pages[selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: selectedIndex,
+        onTap: (index) => setState(() => selectedIndex = index),
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.article), label: "News"),
+          BottomNavigationBarItem(icon: Icon(Icons.message), label: "Messages"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+        ],
+      ),
+    );
+  }
+}

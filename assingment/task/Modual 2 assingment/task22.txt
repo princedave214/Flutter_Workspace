@@ -1,0 +1,16 @@
+import 'dart:io';
+
+void task22() {
+  stdout.write("Enter file path: ");
+  String filePath = stdin.readLineSync()!;
+
+  try {
+    File file = File(filePath);
+    String contents = file.readAsStringSync();
+    print("File Contents:\n$contents");
+  } on FileSystemException {
+    print("File not found or cannot be opened.");
+  } catch (e) {
+    print("Unexpected error: $e");
+  }
+}

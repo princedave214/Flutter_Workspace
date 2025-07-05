@@ -1,0 +1,24 @@
+class Book {
+  String title;
+  String author;
+  int publicationYear;
+
+  Book(this.title, this.author, this.publicationYear);
+
+  void displayDetails() {
+    print("Title: $title");
+    print("Author: $author");
+    print("Publication Year: $publicationYear");
+  }
+
+  bool isOverTenYearsOld() {
+    int currentYear = DateTime.now().year;
+    return currentYear - publicationYear > 10;
+  }
+}
+
+void task17() {
+  Book book = Book("Clean Code", "Robert C. Martin", 2008);
+  book.displayDetails();
+  print("Is over 10 years old: ${book.isOverTenYearsOld()}");
+}

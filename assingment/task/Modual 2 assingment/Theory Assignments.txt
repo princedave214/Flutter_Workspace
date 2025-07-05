@@ -1,0 +1,8 @@
+* Fundamental Data Types in Dart
+- int,string,bool,list,map,var
+* Describe control structures in Dart with examples of if, else, for, while, and switch.
+- all are type of loops
+* Explain object-oriented programming concepts in Dart, such as classes, inheritance,
+- object,class,inheritance,abstraction,encapsulation,polymorphism
+*  Asynchronous Programming in Dart
+- async and await use for run program and says wait until fix time ex,5sec,6sec

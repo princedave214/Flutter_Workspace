@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(PulsingButtonApp());
+
+class PulsingButtonApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: PulsingButtonScreen());
+  }
+}
+
+class PulsingButtonScreen extends StatefulWidget {
+  @override
+  _PulsingButtonScreenState createState() => _PulsingButtonScreenState();
+}
+
+class _PulsingButtonScreenState extends State<PulsingButtonScreen> {
+  bool growing = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Pulsing Button")),
+      body: Center(
+        child: TweenAnimationBuilder(
+          tween: Tween<double>(begin: 1.0, end: 1.2),
+          duration: Duration(seconds: 1),
+          curve: Curves.easeInOut,
+          builder: (context, scale, child) {
+            return Transform.scale(
+              scale: scale,
+              child: ElevatedButton(
+                onPressed: () => setState(() => growing = !growing),
+                child: Text("Pulse"),
+              ),
+            );
+          },
+          onEnd: () => setState(() => growing = !growing),
+        ),
+      ),
+    );
+  }
+}

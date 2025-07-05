@@ -1,0 +1,49 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(SlideTransitionApp());
+
+class SlideTransitionApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: FirstSlideScreen());
+  }
+}
+
+class FirstSlideScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Slide Transition")),
+      body: Center(
+        child: ElevatedButton(
+          child: Text("Go to Next"),
+          onPressed: () {
+            Navigator.push(context, PageRouteBuilder(
+              transitionDuration: Duration(milliseconds: 600),
+              pageBuilder: (_, __, ___) => SecondSlideScreen(),
+              transitionsBuilder: (_, animation, __, child) {
+                return SlideTransition(
+                  position: Tween<Offset>(
+                    begin: Offset(1, 0),
+                    end: Offset(0, 0),
+                  ).animate(animation),
+                  child: child,
+                );
+              },
+            ));
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class SecondSlideScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Second Screen")),
+      body: Center(child: Text("Slide Transition Complete")),
+    );
+  }
+}

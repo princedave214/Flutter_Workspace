@@ -1,0 +1,16 @@
+Future<String> fetchData(String name, int delay) async {
+  await Future.delayed(Duration(seconds: delay));
+  return "$name data loaded";
+}
+
+Future<void> task27() async {
+  List<String> users = ['User1', 'User2', 'User3'];
+  List<String> results = [];
+
+  for (var user in users) {
+    String data = await fetchData(user, 1);
+    results.add(data);
+  }
+
+  print("All data loaded: $results");
+}

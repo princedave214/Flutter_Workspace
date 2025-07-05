@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(CustomListApp());
+
+class CustomListApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: CustomListScreen());
+  }
+}
+
+class CustomListScreen extends StatefulWidget {
+  @override
+  _CustomListScreenState createState() => _CustomListScreenState();
+}
+
+class _CustomListScreenState extends State<CustomListScreen> {
+  List<String> names = ["Aryan", "Sneha", "Rahul", "Kiran", "Ayesha"];
+
+  void deleteName(int index) {
+    setState(() => names.removeAt(index));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Custom Styled List")),
+      body: ListView.builder(
+        itemCount: names.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: Icon(Icons.person),
+            title: Text(names[index]),
+            trailing: IconButton(
+              icon: Icon(Icons.delete, color: Colors.red),
+              onPressed: () => deleteName(index),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}

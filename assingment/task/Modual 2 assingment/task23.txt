@@ -1,0 +1,55 @@
+import 'dart:io';
+
+void task23() {
+  double num1 = 0;
+  double num2 = 0;
+  String? operator;
+
+  while (true) {
+    try {
+      stdout.write("Enter first number: ");
+      num1 = double.parse(stdin.readLineSync()!);
+      break;
+    } catch (e) {
+      print("Invalid input. Please enter a number.");
+    }
+  }
+
+  stdout.write("Enter operator (+, -, *, /): ");
+  operator = stdin.readLineSync();
+
+  while (true) {
+    try {
+      stdout.write("Enter second number: ");
+      num2 = double.parse(stdin.readLineSync()!);
+      break;
+    } catch (e) {
+      print("Invalid input. Please enter a number.");
+    }
+  }
+
+  double result;
+  switch (operator) {
+    case '+':
+      result = num1 + num2;
+      break;
+    case '-':
+      result = num1 - num2;
+      break;
+    case '*':
+      result = num1 * num2;
+      break;
+    case '/':
+      if (num2 == 0) {
+        print("Cannot divide by zero.");
+        return;
+      }
+      result = num1 / num2;
+      break;
+    default:
+      print("Invalid operator.");
+      return;
+  }
+
+  print("Result: $result");
+}

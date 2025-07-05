@@ -1,0 +1,58 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+void main() {
+  runApp(ChangeNotifierProvider(
+    create: (_) => CartProvider(),
+    child: MaterialApp(home: CartApp()),
+  ));
+}
+
+class CartProvider with ChangeNotifier {
+  List<Map<String, dynamic>> _cartItems = [];
+
+  List<Map<String, dynamic>> get cartItems => _cartItems;
+
+  double get totalPrice =>
+      _cartItems.fold(0, (sum, item) => sum + item['price']);
+
+  void addItem(Map<String, dynamic> item) {
+    _cartItems.add(item);
+    notifyListeners();
+  }
+
+  void removeItem(int index) {
+    _cartItems.removeAt(index);
+    notifyListeners();
+  }
+}
+
+class CartApp extends StatelessWidget {
+  final products = [
+    {"name": "Phone", "price": 700.0},
+    {"name": "Laptop", "price": 1200.0},
+    {"name": "Watch", "price": 250.0},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final cart = context.watch<CartProvider>();
+    return Scaffold(
+      appBar: AppBar(title: Text("Shopping Cart - ₹${cart.totalPrice}")),
+      body: ListView.builder(
+        itemCount: products.length,
+        itemBuilder: (_, index) {
+          final product = products[index];
+          return ListTile(
+            title: Text(product['name']),
+            subtitle: Text("₹${product['price']}"),
+            trailing: IconButton(
+              icon: Icon(Icons.add_shopping_cart),
+              onPressed: () => cart.addItem(product),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}

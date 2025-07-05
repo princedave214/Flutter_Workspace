@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(CardFabApp());
+
+class CardFabApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: CardWithFAB());
+  }
+}
+
+class CardWithFAB extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Card with FAB")),
+      body: Center(
+        child: Stack(
+          children: [
+            Card(
+              margin: EdgeInsets.all(40),
+              elevation: 4,
+              child: Container(
+                height: 200,
+                width: 300,
+                padding: EdgeInsets.all(16),
+                child: Text("This is a card with a FAB."),
+              ),
+            ),
+            Positioned(
+              bottom: 10,
+              right: 10,
+              child: FloatingActionButton(
+                onPressed: () {},
+                child: Icon(Icons.add),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

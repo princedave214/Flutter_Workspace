@@ -1,0 +1,69 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(TaskManagerApp());
+
+class TaskManagerApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: TaskManagerScreen());
+  }
+}
+
+class TaskManagerScreen extends StatefulWidget {
+  @override
+  _TaskManagerScreenState createState() => _TaskManagerScreenState();
+}
+
+class _TaskManagerScreenState extends State<TaskManagerScreen> {
+  final TextEditingController taskController = TextEditingController();
+  final List<Map<String, dynamic>> tasks = [];
+
+  void addTask(String task) {
+    setState(() {
+      tasks.add({'title': task, 'done': false});
+      taskController.clear();
+    });
+  }
+
+  void toggleTask(int index, bool? value) {
+    setState(() {
+      tasks[index]['done'] = value!;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Task Manager")),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            TextField(
+              controller: taskController,
+              decoration: InputDecoration(
+                labelText: "Add Task",
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () => addTask(taskController.text),
+                ),
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: tasks.length,
+                itemBuilder: (context, index) {
+                  return CheckboxListTile(
+                    title: Text(tasks[index]['title']),
+                    value: tasks[index]['done'],
+                    onChanged: (val) => toggleTask(index, val),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -1,0 +1,26 @@
+
+
+double celsiusToFahrenheit(double celsius) => (celsius * 9 / 5) + 32;
+
+double fahrenheitToCelsius(double fahrenheit) => (fahrenheit - 32) * 5 / 9;
+
+void main() {
+  print("Choose conversion type:");
+  print("1. Celsius to Fahrenheit");
+  print("2. Fahrenheit to Celsius");
+  stdout.write("Enter your choice (1 or 2): ");
+  int choice = int.parse(stdin.readLineSync()!);
+
+  stdout.write("Enter the temperature: ");
+  double temp = double.parse(stdin.readLineSync()!);
+
+  if (choice == 1) {
+    double result = celsiusToFahrenheit(temp);
+    print("$temp°C = ${result.toStringAsFixed(2)}°F");
+  } else if (choice == 2) {
+    double result = fahrenheitToCelsius(temp);
+    print("$temp°F = ${result.toStringAsFixed(2)}°C");
+  } else {
+    print("Invalid choice.");
+  }
+}

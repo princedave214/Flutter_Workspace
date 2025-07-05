@@ -1,0 +1,20 @@
+List<int> findMinMax(List<int> numbers) {
+  int min = numbers[0];
+  int max = numbers[0];
+
+  for (int num in numbers) {
+    if (num < min) min = num;
+    if (num > max) max = num;
+  }
+
+  return [min, max];
+}
+
+void main() {
+  List<int> numbers = [12, 45, 2, 33, 78, 0, 19];
+  List<int> result = findMinMax(numbers);
+
+  print("List: $numbers");
+  print("Smallest: ${result[0]}");
+  print("Largest: ${result[1]}");
+}

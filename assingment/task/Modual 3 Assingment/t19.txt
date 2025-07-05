@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(SearchBarApp());
+
+class SearchBarApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: SearchScreen());
+  }
+}
+
+class SearchScreen extends StatefulWidget {
+  @override
+  _SearchScreenState createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  final List<String> names = [
+    "Aryan", "Divya", "Kiran", "Soham", "Sneha",
+    "John", "Ayesha", "Neha", "Rahul", "Pooja"
+  ];
+  List<String> filteredNames = [];
+
+  void _filter(String input) {
+    setState(() {
+      filteredNames = names.where((name) => name.toLowerCase().contains(input.toLowerCase())).toList();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Search Bar")),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(labelText: "Search Names"),
+              onChanged: _filter,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: filteredNames.length,
+                itemBuilder: (context, index) {
+                  return ListTile(title: Text(filteredNames[index]));
+                },
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

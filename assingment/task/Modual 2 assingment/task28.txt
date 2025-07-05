@@ -1,0 +1,7 @@
+Future<void> task28() async {
+  print("Fetching weather data...");
+  await Future.delayed(Duration(seconds: 2));
+  print("Almost there...");
+  await Future.delayed(Duration(seconds: 2));
+  print("Weather data loaded successfully.");
+}

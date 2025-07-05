@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(CustomButtonApp());
+
+class CustomButtonApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: CustomButtonScreen());
+  }
+}
+
+class CustomButtonScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Custom Icon Button")),
+      body: Center(
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 30),
+              padding: EdgeInsets.only(top: 40, bottom: 12),
+              width: 120,
+              decoration: BoxDecoration(
+                color: Colors.teal,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Text(
+                  "Upload",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+            CircleAvatar(
+              radius: 24,
+              backgroundColor: Colors.white,
+              child: Icon(Icons.cloud_upload, color: Colors.teal),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

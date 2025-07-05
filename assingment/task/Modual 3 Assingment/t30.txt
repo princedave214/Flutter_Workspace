@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(ProfileStackApp());
+
+class ProfileStackApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: ProfilePage());
+  }
+}
+
+class ProfilePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          Container(height: 300, color: Colors.blue),
+          Positioned(
+            top: 150,
+            child: CircleAvatar(
+              radius: 60,
+              backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=8'),
+            ),
+          ),
+          Positioned(
+            top: 280,
+            child: Column(
+              children: [
+                Text("Aryan Faldu", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                SizedBox(height: 8),
+                Text("Flutter Developer"),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
