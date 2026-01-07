@@ -1,0 +1,325 @@
+MODULE 2 – INTRODUCTION TO PROGRAMMING (C LANGUAGE)
+1. Overview of C Programming
+THEORY EXERCISE
+History and Evolution of C Programming
+
+C programming language was developed by Dennis Ritchie in 1972 at AT&T Bell Laboratories. It was created as an improvement over the B language to develop the UNIX operating system.
+
+Initially, programming was done using assembly language, which was machine-dependent and complex. C introduced a high-level yet system-oriented approach, making it easier to write portable and efficient programs.
+
+Over time, C evolved with standardization:
+
+ANSI C (C89/C90) – Standardized syntax
+
+C99 – Added new data types and features
+
+C11/C18 – Improved safety and performance
+
+Importance of C Language
+
+Fast execution speed
+
+Low-level memory access using pointers
+
+Portable across platforms
+
+Foundation for languages like C++, Java, Python
+
+Widely used in OS, embedded systems, compilers
+
+Why C is Still Used Today
+
+Used in operating systems (Linux, Windows kernel)
+
+Embedded systems (microcontrollers)
+
+Game engines
+
+Device drivers
+
+Real-time systems
+
+LAB EXERCISE
+Real-World Applications of C
+
+Operating Systems
+
+UNIX, Linux kernel, Windows components
+
+Embedded Systems
+
+Microcontrollers (Arduino, IoT devices)
+
+Game Development
+
+Game engines, graphics processing
+
+2. Setting Up Environment
+THEORY EXERCISE
+Steps to Install C Compiler & IDE
+
+Using GCC (Windows):
+
+Download MinGW or GCC
+
+Install and add GCC path to Environment Variables
+
+Verify using gcc --version
+
+IDE Setup:
+
+Dev C++: Download → Install → Ready to use
+
+CodeBlocks: Install with MinGW
+
+VS Code: Install → Add C/C++ extension → Configure compiler
+
+LAB EXERCISE
+Hello World Program
+#include <stdio.h>
+
+int main()
+{
+    printf("Hello, World!");
+    return 0;
+}
+
+3. Basic Structure of a C Program
+THEORY EXERCISE
+
+Components:
+
+Header files – #include <stdio.h>
+
+Main function – int main()
+
+Variables & Data Types
+
+Statements
+
+Return statement
+
+Comments
+
+LAB EXERCISE
+#include <stdio.h>
+
+int main()
+{
+    int age = 20;        // integer
+    char grade = 'A';   // character
+    float marks = 85.5; // float
+
+    printf("Age: %d\n", age);
+    printf("Grade: %c\n", grade);
+    printf("Marks: %.2f\n", marks);
+
+    return 0;
+}
+
+4. Operators in C
+THEORY EXERCISE
+
+Types of Operators:
+
+Arithmetic: + - * / %
+
+Relational: > < >= <= == !=
+
+Logical: && || !
+
+Assignment: = += -=
+
+Increment/Decrement: ++ --
+
+Bitwise: & | ^ << >>
+
+Conditional: ?:
+
+LAB EXERCISES
+Arithmetic, Relational & Logical Operations
+#include <stdio.h>
+
+int main()
+{
+    int a, b;
+    printf("Enter two numbers: ");
+    scanf("%d%d", &a, &b);
+
+    printf("Addition: %d\n", a + b);
+    printf("Greater: %d\n", a > b);
+    printf("Logical AND: %d\n", a && b);
+
+    return 0;
+}
+
+Area & Circumference of Circle
+#include <stdio.h>
+#define PI 3.14
+
+int main()
+{
+    float r;
+    printf("Enter radius: ");
+    scanf("%f", &r);
+
+    printf("Area: %.2f\n", PI * r * r);
+    printf("Circumference: %.2f\n", 2 * PI * r);
+    return 0;
+}
+
+Area of Square
+int a;
+scanf("%d",&a);
+printf("Area = %d", a*a);
+
+Area of Cube
+int a;
+scanf("%d",&a);
+printf("Area = %d", 6*a*a);
+
+Area of Triangle
+float b,h;
+scanf("%f%f",&b,&h);
+printf("Area = %.2f", 0.5*b*h);
+
+Apples Problem
+int s;
+scanf("%d",&s);
+printf("Apples required = %d", s*5);
+
+ASCII Programs
+char c;
+scanf("%c",&c);
+printf("ASCII = %d", c);
+
+int n;
+scanf("%d",&n);
+printf("Character = %c", n);
+
+5. Control Flow Statements
+THEORY EXERCISE
+
+if
+
+if-else
+
+nested if
+
+switch
+
+LAB EXERCISES
+Even / Odd & Month
+int n;
+scanf("%d",&n);
+
+if(n%2==0) printf("Even");
+else printf("Odd");
+
+switch(n)
+{
+    case 1: printf("January"); break;
+    case 2: printf("February"); break;
+}
+
+Max of 3 (Ternary)
+int a,b,c;
+scanf("%d%d%d",&a,&b,&c);
+int max = (a>b && a>c)?a:(b>c?b:c);
+printf("Max = %d", max);
+
+Profit / Loss
+int cp,sp;
+scanf("%d%d",&cp,&sp);
+if(sp>cp) printf("Profit");
+else printf("Loss");
+
+6. Looping in C
+THEORY EXERCISE
+Loop	Use
+for	Known iterations
+while	Condition based
+do-while	Executes at least once
+LAB EXERCISES
+1 to 10 using loops
+for(int i=1;i<=10;i++) printf("%d ",i);
+
+Even/Odd Count
+int a[10],e=0,o=0,se=0,so=0;
+for(int i=0;i<10;i++)
+{
+    scanf("%d",&a[i]);
+    if(a[i]%2==0){e++;se+=a[i];}
+    else{o++;so+=a[i];}
+}
+
+Reverse Number
+int n,rev=0;
+scanf("%d",&n);
+while(n>0)
+{
+    rev=rev*10+n%10;
+    n/=10;
+}
+printf("%d",rev);
+
+7. Loop Control Statements
+THEORY
+
+break → exits loop
+
+continue → skips iteration
+
+goto → jumps to label
+
+LAB
+for(int i=1;i<=10;i++)
+{
+    if(i==5) break;
+    if(i==3) continue;
+    printf("%d ",i);
+}
+
+8. Functions in C
+THEORY
+
+Functions are reusable blocks of code.
+
+LAB
+Factorial Function
+int fact(int n)
+{
+    if(n==0) return 1;
+    return n*fact(n-1);
+}
+
+9. Arrays
+LAB
+int a[5]={1,2,3,4,5};
+
+10. Pointers
+int a=10;
+int *p=&a;
+*p=20;
+printf("%d",a);
+
+11. Strings
+char s1[50],s2[50];
+gets(s1);
+gets(s2);
+strcat(s1,s2);
+printf("%s",s1);
+
+12. Structures
+struct student
+{
+    char name[20];
+    int roll;
+    float marks;
+};
+
+13. File Handling
+FILE *fp;
+fp=fopen("test.txt","w");
+fprintf(fp,"Hello File");
+fclose(fp);

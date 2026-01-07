@@ -1,0 +1,240 @@
+Module 4: Navigation and Routing (Flutter)
+Theory Assignments
+1. How the Navigator widget works in Flutter
+
+The Navigator widget in Flutter manages a stack of routes (screens/pages).
+Each screen is called a route.
+
+When a new screen is opened, it is pushed onto the stack.
+
+When a screen is closed, it is popped from the stack.
+
+Key Methods
+
+Navigator.push() → Open a new screen
+
+Navigator.pop() → Go back to the previous screen
+
+Navigator.pushReplacement() → Replace the current screen
+
+Example
+Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => SecondScreen()),
+);
+
+How it works
+
+Navigator keeps track of screen history.
+
+It allows forward and backward navigation.
+
+It follows a Last In, First Out (LIFO) stack structure.
+
+2. Named Routes and their advantages
+What are Named Routes?
+
+Named routes use string identifiers instead of directly creating route objects.
+
+Example:
+
+Navigator.pushNamed(context, '/details');
+
+Defining Named Routes
+MaterialApp(
+  routes: {
+    '/': (context) => HomeScreen(),
+    '/products': (context) => ProductScreen(),
+    '/details': (context) => DetailScreen(),
+  },
+);
+
+Advantages over direct navigation
+
+Cleaner and more readable code
+
+Easier navigation management in large apps
+
+Centralized route definition
+
+Better maintainability
+
+Supports passing arguments easily
+
+3. Passing data between screens using route arguments
+
+Flutter allows data transfer using constructor parameters or route arguments.
+
+Using Constructor
+Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (context) => DetailScreen(productName: "Laptop"),
+  ),
+);
+
+class DetailScreen extends StatelessWidget {
+  final String productName;
+  DetailScreen({required this.productName});
+}
+
+Using Named Routes with Arguments
+Navigator.pushNamed(
+  context,
+  '/details',
+  arguments: 'Smartphone',
+);
+
+final product =
+    ModalRoute.of(context)!.settings.arguments as String;
+
+Practical Assignments
+1. Multi-Screen App (Home → Product List → Details)
+main.dart
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: HomeScreen(),
+    );
+  }
+}
+
+Home Screen
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Home")),
+      body: Center(
+        child: ElevatedButton(
+          child: Text("Go to Products"),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProductScreen()),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+Product List Screen
+class ProductScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Products")),
+      body: ListView(
+        children: [
+          ListTile(
+            title: Text("Laptop"),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      DetailScreen(product: "Laptop"),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Detail Screen
+class DetailScreen extends StatelessWidget {
+  final String product;
+  DetailScreen({required this.product});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Details")),
+      body: Center(
+        child: Text("Product: $product"),
+      ),
+    );
+  }
+}
+
+2. Navigation Drawer with Three Screens
+drawer: Drawer(
+  child: ListView(
+    children: [
+      DrawerHeader(
+        child: Text("Menu"),
+        decoration: BoxDecoration(color: Colors.blue),
+      ),
+      ListTile(
+        title: Text("Home"),
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (_) => HomeScreen()));
+        },
+      ),
+      ListTile(
+        title: Text("Profile"),
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (_) => ProfileScreen()));
+        },
+      ),
+      ListTile(
+        title: Text("Settings"),
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (_) => SettingsScreen()));
+        },
+      ),
+    ],
+  ),
+),
+
+3. Bottom Navigation Bar (Home, Profile, Settings)
+class BottomNavApp extends StatefulWidget {
+  @override
+  _BottomNavAppState createState() => _BottomNavAppState();
+}
+
+class _BottomNavAppState extends State<BottomNavApp> {
+  int _currentIndex = 0;
+
+  final List<Widget> pages = [
+    HomeScreen(),
+    ProfileScreen(),
+    SettingsScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person), label: "Profile"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: "Settings"),
+        ],
+      ),
+    );
+  }
+}

@@ -1,0 +1,311 @@
+Module 6: Working with Forms and User Input
+Theory Assignments
+1. Structure and Purpose of Forms in Flutter
+Purpose of Forms
+
+Forms in Flutter are used to collect, validate, and submit user input. They are commonly used for:
+
+Login and registration screens
+
+Feedback forms
+
+Data entry applications
+
+Basic Structure of a Flutter Form
+
+A Flutter form consists of:
+
+Form widget – Acts as a container for form fields
+
+GlobalKey<FormState – Used to access and manage form state
+
+TextFormField – Input fields with built-in validation
+
+Validation logic – Ensures correct input
+
+Submit button – Triggers validation and submission
+
+Example Structure
+final _formKey = GlobalKey<FormState>();
+
+Form(
+  key: _formKey,
+  child: Column(
+    children: [
+      TextFormField(),
+      ElevatedButton(
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            // Submit form
+          }
+        },
+        child: Text("Submit"),
+      ),
+    ],
+  ),
+);
+
+2. Controllers and Listeners in Form Input
+TextEditingController
+
+A TextEditingController:
+
+Retrieves text entered by the user
+
+Modifies text programmatically
+
+Listens for changes in input
+
+Example
+TextEditingController emailController = TextEditingController();
+
+TextField(
+  controller: emailController,
+);
+
+Using Listeners
+emailController.addListener(() {
+  print(emailController.text);
+});
+
+Why Controllers Are Important
+
+Access form values easily
+
+Clear fields after submission
+
+Validate or manipulate input dynamically
+
+3. Common Form Validation Techniques
+1. Empty Field Validation
+if (value == null || value.isEmpty) {
+  return 'Field cannot be empty';
+}
+
+2. Email Validation
+if (!value.contains('@')) {
+  return 'Enter a valid email';
+}
+
+3. Password Length Validation
+if (value.length < 6) {
+  return 'Password must be at least 6 characters';
+}
+
+4. Phone Number Validation
+if (value.length != 10) {
+  return 'Enter a valid phone number';
+}
+
+Practical Assignments
+1. Login Form with Email and Password Validation
+Features
+
+Email field validation
+
+Password length validation
+
+Submit button
+
+Code
+import 'package:flutter/material.dart';
+
+class LoginForm extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Login")),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                decoration: InputDecoration(labelText: "Email"),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Email is required";
+                  }
+                  if (!value.contains('@')) {
+                    return "Enter a valid email";
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: "Password"),
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.length < 6) {
+                    return "Password must be at least 6 characters";
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Login Successful")),
+                    );
+                  }
+                },
+                child: Text("Login"),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+2. Registration Form with Validation
+Fields
+
+Name
+
+Email
+
+Phone Number
+
+Password
+
+Code
+class RegistrationForm extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Registration")),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              TextFormField(
+                decoration: InputDecoration(labelText: "Name"),
+                validator: (value) =>
+                    value!.isEmpty ? "Name required" : null,
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: "Email"),
+                validator: (value) =>
+                    !value!.contains('@') ? "Invalid email" : null,
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: "Phone"),
+                keyboardType: TextInputType.phone,
+                validator: (value) =>
+                    value!.length != 10 ? "Invalid phone number" : null,
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: "Password"),
+                obscureText: true,
+                validator: (value) =>
+                    value!.length < 6 ? "Weak password" : null,
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Registration Successful")),
+                    );
+                  }
+                },
+                child: Text("Register"),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+3. Feedback Form (Dropdown, Checkbox, Text Input)
+Features
+
+Dropdown selection
+
+Checkbox input
+
+Text feedback
+
+Submit handling
+
+Code
+class FeedbackForm extends StatefulWidget {
+  @override
+  _FeedbackFormState createState() => _FeedbackFormState();
+}
+
+class _FeedbackFormState extends State<FeedbackForm> {
+  final _formKey = GlobalKey<FormState>();
+  String selectedRating = "Good";
+  bool agree = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Feedback Form")),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              DropdownButtonFormField(
+                value: selectedRating,
+                items: ["Excellent", "Good", "Average", "Poor"]
+                    .map((item) => DropdownMenuItem(
+                          value: item,
+                          child: Text(item),
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() {
+                    selectedRating = value.toString();
+                  });
+                },
+                decoration: InputDecoration(labelText: "Rating"),
+              ),
+              CheckboxListTile(
+                title: Text("I agree to terms"),
+                value: agree,
+                onChanged: (value) {
+                  setState(() {
+                    agree = value!;
+                  });
+                },
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: "Feedback"),
+                validator: (value) =>
+                    value!.isEmpty ? "Please enter feedback" : null,
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate() && agree) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Feedback Submitted")),
+                    );
+                  }
+                },
+                child: Text("Submit"),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

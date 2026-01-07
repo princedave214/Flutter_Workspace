@@ -1,0 +1,325 @@
+MODULE 1 – OVERVIEW OF IT INDUSTRY
+1. What is a Program?
+LAB: Hello World in Flutter (Dart)
+
+Flutter App (main.dart)
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Text('Hello, World!'),
+        ),
+      ),
+    );
+  }
+}
+
+
+Comparison
+
+Dart uses main() as entry point
+
+Flutter uses widgets instead of print statements
+
+UI is built using widget tree
+
+THEORY: What is a Program?
+
+In Flutter, a program is a Dart file that contains instructions to build UI and handle user interaction.
+It tells the device how to display screens and respond to events.
+
+2. What is Programming?
+THEORY: Programming Steps (Flutter Context)
+
+Problem understanding (App idea)
+
+UI design (Widgets)
+
+Business logic (Dart code)
+
+Testing (Hot reload, debug)
+
+Deployment (APK / IPA)
+
+3. Types of Programming Languages
+THEORY
+
+Dart is a high-level language
+
+Flutter apps are compiled to native machine code
+
+4. World Wide Web & Internet
+LAB: Client–Server Flow (Flutter App)
+Flutter App (Client)
+      HTTP Request
+Internet
+     
+Backend Server (API)
+      JSON Response
+
+THEORY: Client & Server
+
+Flutter App → Client
+
+API / Backend → Server
+
+5. Network Layers on Client & Server
+LAB: HTTP Request in Flutter
+import 'package:http/http.dart' as http;
+
+Future<void> fetchData() async 
+{
+  final response =
+      await http.get(Uri.parse('https://example.com'));
+
+  print(response.body);
+}
+
+THEORY: TCP/IP Layers
+
+Flutter uses:
+
+Application Layer - HTTP
+
+Transport - TCP
+
+Internet - IP
+
+Network - Wi-Fi / Mobile Data
+
+6. Client and Server
+THEORY
+
+Flutter apps send requests using HTTP packages and receive JSON data from servers.
+
+7. Types of Internet Connections
+LAB: Research (Flutter App Usage)
+
+Broadband - Normal apps
+
+Fiber - Streaming & gaming apps
+
+Satellite - Remote location apps
+
+THEORY: Broadband vs Fiber
+
+Flutter apps load faster on fiber due to low latency.
+
+8. Protocols
+LAB: HTTP Simulation in Flutter
+http.get(Uri.parse('http://api.example.com'));
+
+THEORY: HTTP vs HTTPS
+
+Flutter prefers HTTPS for secure API calls.
+
+9. Application Security
+LAB: Security Issues in Flutter
+
+Hardcoded API keys - Use env files
+
+Insecure HTTP - Use HTTPS
+
+Weak authentication - Use Firebase Auth
+
+THEORY: Encryption
+
+Flutter uses SSL/TLS to encrypt data.
+
+10. Software Applications & Types
+LAB: Flutter App Classification
+App	Type
+Android OS	type - System
+Flutter App	type - Application
+
+Flutter apps are application software.
+
+11. Software Architecture
+LAB: Flutter 3-Tier Architecture
+UI (Widgets)
+Logic (Provider / Bloc)
+Data (API / Database)
+
+Modularity helps Flutter apps scale easily.
+
+12. Layers in Software Architecture
+LAB: Example (E-commerce App)
+
+UI - Product screen
+
+Logic - Cart management
+
+Data - API & database
+
+Layers keep Flutter code clean and testable.
+
+13. Software Environments
+LAB: Flutter Environments
+
+Development - Debug mode
+
+Testing - Emulator
+
+Production - Release APK
+
+Development environment speeds up coding via hot reload.
+
+14. Source Code
+LAB: Flutter Source Code on GitHub
+
+Upload lib/main.dart
+
+Commit changes
+
+Source code = Dart files
+Machine code = Native binaries
+
+15. GitHub Introduction
+LAB: Flutter Git Commands
+git init
+git add .
+git commit -m "Flutter app"
+git push
+
+Version control tracks Flutter app changes.
+
+16. GitHub Student Account
+
+Students get free private repos and CI tools for Flutter apps.
+
+17. Types of Software
+LAB
+Software	Category
+Flutter SDK	Utility
+VS Code	        Application
+
+Flutter is open-source.
+
+18. GIT & GITHUB Training
+
+Git enables team-based Flutter development.
+
+19. Application Software
+LAB
+
+Flutter apps improve productivity (banking, delivery, learning).
+
+Businesses use Flutter for cross-platform apps.
+
+20. Software Development Process
+LAB: Flutter SDLC
+Idea → UI Design → Flutter Coding → Testing → Play Store → Updates
+
+Same SDLC applies to Flutter apps.
+
+21. Software Requirement
+LAB: Library App (Flutter)
+
+Login
+
+Book list
+
+Issue/return
+
+Clear requirements prevent UI rework.
+
+22. Software Analysis
+LAB: Shopping App
+
+User journey
+
+Payment flow
+
+Analysis defines Flutter screen behavior.
+
+23. System Design
+LAB: Food Delivery App
+
+User app
+
+Delivery tracking
+
+Admin panel
+
+Design decides app architecture.
+
+24. Software Testing
+LAB: Flutter Test Case
+expect(2 + 2, 4);
+
+Testing ensures bug-free apps.
+
+25. Maintenance
+LAB
+
+Flutter apps require updates for bug fixes and OS changes.
+
+Maintenance keeps apps usable.
+
+26. Web vs Desktop Applications
+
+Flutter supports:
+
+Web apps
+
+Desktop apps
+
+Mobile apps
+
+27. Web Application
+
+Flutter Web:
+
+No installation
+
+Runs in browser
+
+28. Designing (UI/UX)
+THEORY
+
+Flutter widgets help create smooth UI/UX.
+
+29. Mobile Applications
+
+Flutter is hybrid (cross-platform) but performs like native.
+
+30. DFD
+LAB: Hospital App
+Patient - Flutter App - Server - Doctor
+
+
+DFD helps plan Flutter data flow.
+
+31. Desktop Application
+LAB
+
+Flutter supports Windows, macOS, Linux apps.
+
+Desktop apps are faster but platform-dependent.
+
+32. Flowchart
+LAB: Registration Flow
+Start - Input - Validate - Save - End
+
+Flowcharts simplify Flutter logic planning.
+
+If you want next:
+
+Complete Flutter lab programs
+
+Exam-ready short answers
+
+PDF / Notes format
+
+Diagrams & flowcharts

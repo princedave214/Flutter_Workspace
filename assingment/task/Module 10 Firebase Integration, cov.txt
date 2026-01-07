@@ -1,0 +1,107 @@
+Module 10: Firebase Integration, covering both theory and practical assignments for Flutter:
+
+Theory Assignments
+1. Purpose of Firebase and its Core Services
+
+Firebase is a Backend-as-a-Service (BaaS) platform by Google that allows developers to build and scale apps quickly without managing servers. It provides real-time databases, authentication, analytics, and more.
+
+Core Firebase Services:
+
+Authentication: Sign-in and identity management (email/password, Google, Facebook, etc.)
+
+Cloud Firestore: NoSQL cloud database for storing and syncing data in real-time.
+
+Realtime Database: Older real-time database alternative to Firestore.
+
+Cloud Storage: Store and serve files like images, videos, and documents.
+
+Cloud Functions: Serverless backend logic (functions triggered by events).
+
+Firebase Analytics: Track app usage and user behavior.
+
+Firebase Messaging: Push notifications (FCM).
+
+Firebase Crashlytics: Real-time crash reporting.
+
+2. Firebase Authentication in Flutter
+
+Firebase Authentication provides secure and easy ways to manage user sign-ups, logins, and identity verification.
+
+Use Cases in Flutter Apps:
+
+Email/password sign-up and login.
+
+Social sign-in (Google, Facebook, Apple).
+
+Anonymous sign-in for temporary accounts.
+
+Managing user sessions in mobile apps.
+
+Key Flutter Packages:
+
+firebase_auth – for authentication.
+
+google_sign_in – for Google login.
+
+flutter_facebook_auth – for Facebook login.
+
+3. Firestore vs Traditional SQL Databases
+
+Firestore is a NoSQL document database, while SQL databases are relational.
+
+Feature	Firestore	SQL Database
+Data Structure	Document (JSON-like) in Collections	Tables and Rows
+Schema	Flexible, dynamic	Fixed schema
+Scalability	Horizontal scaling, cloud-native	Vertical scaling mainly
+Queries	Collection-based, limited joins	Complex queries with joins
+Real-time Updates	Built-in real-time listeners	Requires polling or triggers
+Offline Support	Yes, local caching	Depends on implementation
+
+Firestore is ideal for apps requiring real-time updates, offline access, and flexible data structures, like chat apps or social feeds.
+
+Practical Assignments
+1. Sign-up and Login with Firebase Authentication
+
+Steps in Flutter:
+
+Add Firebase to your Flutter project.
+
+Add firebase_auth dependency.
+
+Initialize Firebase in main.dart.
+
+Create sign-up and login screens with TextFormField for email and password.
+
+Use FirebaseAuth.instance.createUserWithEmailAndPassword for sign-up.
+
+Use FirebaseAuth.instance.signInWithEmailAndPassword for login.
+
+Optionally, use StreamBuilder to track user login state.
+
+2. Chat Application Using Firestore
+
+Steps in Flutter:
+
+Add cloud_firestore dependency.
+
+Set up Firestore collections, e.g., chats → documents containing message, senderId, timestamp.
+
+Create a chat UI with ListView to display messages.
+
+Send messages using Firestore.instance.collection('chats').add({...}).
+
+Use StreamBuilder to listen to real-time updates.
+
+3. Image Gallery App with Firebase Storage
+
+Steps in Flutter:
+
+Add firebase_storage and image_picker dependencies.
+
+Allow users to pick images from device gallery.
+
+Upload images to Firebase Storage using FirebaseStorage.instance.ref('path').putFile(file).
+
+Store image URLs in Firestore for easy retrieval.
+
+Display images using Image.network(url) in a GridView.

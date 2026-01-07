@@ -1,0 +1,692 @@
+MODULE 3: Introduction to Flutter Widgets & UI Components
+
+ THEORY ASSIGNMENTS
+
+1. Difference between Stateless and Stateful Widgets
+StatelessWidget	StatefulWidget
+UI does not change	UI changes dynamically
+No internal state	Has mutable state
+Faster & simpler	Used for user interaction
+Example – StatelessWidget
+class HelloText extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text("Hello Flutter");
+  }
+}
+
+Example – StatefulWidget
+class Counter extends StatefulWidget {
+  @override
+  _CounterState createState() => _CounterState();
+}
+
+class _CounterState extends State<Counter> {
+  int count = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text("Count: $count");
+  }
+}
+
+2. Widget Lifecycle & State Management
+
+Lifecycle of a StatefulWidget:
+
+createState()
+
+initState() – called once
+
+build() – UI rendering
+
+setState() – updates UI
+
+dispose() – cleanup
+
+@override
+void initState() {
+  super.initState();
+}
+
+
+State is updated using:
+
+setState(() {
+  count++;
+});
+
+3. Common Flutter Layout Widgets
+Widget	Description
+Container	Box with padding, margin, color
+Row	Horizontal layout
+Column	Vertical layout
+Stack	Overlapping widgets
+Expanded	Fills available space
+ PRACTICAL ASSIGNMENTS
+1. BASIC WIDGETS
+ Task 1: Hello World App
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      body: Center(
+        child: Text("Hello, Flutter!"),
+      ),
+    ),
+  ));
+}
+
+ Task 2: Counter with AppBar & FAB
+class CounterApp extends StatefulWidget {
+  @override
+  _CounterAppState createState() => _CounterAppState();
+}
+
+class _CounterAppState extends State<CounterApp> {
+  int count = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Counter App")),
+      body: Center(child: Text("Count: $count")),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() => count++);
+        },
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+Task 3: Text Styling
+Column(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    Text("Big Text", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+    Text("Colored Text", style: TextStyle(color: Colors.blue)),
+  ],
+)
+
+Task 4: Login Screen
+Column(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    TextField(decoration: InputDecoration(labelText: "Email")),
+    TextField(
+      decoration: InputDecoration(labelText: "Password"),
+      obscureText: true,
+    ),
+    ElevatedButton(onPressed: () {}, child: Text("Login")),
+  ],
+)
+
+2. LAYOUT WIDGETS
+ Task 5: Row with Containers
+Row(
+  children: [
+    Container(width: 100, height: 100, color: Colors.red),
+    Container(width: 100, height: 100, color: Colors.green),
+    Container(width: 100, height: 100, color: Colors.blue),
+  ],
+)
+
+Task 6: Profile Card
+Column(
+  children: [
+    CircleAvatar(radius: 40),
+    Text("John Doe", style: TextStyle(fontSize: 20)),
+    Text("Flutter Developer"),
+  ],
+)
+
+ Task 7: GridView Images
+GridView.count(
+  crossAxisCount: 4,
+  children: List.generate(8, (index) {
+    return Image.network("https://picsum.photos/200");
+  }),
+)
+
+Task 8: ListView Builder
+ListView.builder(
+  itemCount: 10,
+  itemBuilder: (context, index) {
+    return ListTile(
+      title: Text("Name $index"),
+      onTap: () => print("Name tapped"),
+    );
+  },
+)
+
+3. BUTTONS & USER INTERACTION
+Task 9: Simple Calculator UI
+
+We'll make a basic calculator UI with buttons for numbers 0-9 and basic operations +, -, *, /, and a = button to calculate. The result will be displayed at the top.
+
+Code Example:
+import 'package:flutter/material.dart';
+
+void main() => runApp(CalculatorApp());
+
+class CalculatorApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: CalculatorScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class CalculatorScreen extends StatefulWidget {
+  @override
+  _CalculatorScreenState createState() => _CalculatorScreenState();
+}
+
+class _CalculatorScreenState extends State<CalculatorScreen> {
+  String input = '';
+  String result = '';
+
+  void buttonPressed(String value) {
+    setState(() {
+      if (value == '=') {
+        try {
+          result = _calculate(input);
+        } catch (e) {
+          result = 'Error';
+        }
+      } else if (value == 'C') {
+        input = '';
+        result = '';
+      } else {
+        input += value;
+      }
+    });
+  }
+
+  String _calculate(String expression) {
+    // Very simple calculation for demo purposes
+    // Only handles +, -, *, /
+    // WARNING: For complex apps, use expression parsing packages like 'math_expressions'
+    double res = 0;
+    if (expression.contains('+')) {
+      var parts = expression.split('+');
+      res = double.parse(parts[0]) + double.parse(parts[1]);
+    } else if (expression.contains('-')) {
+      var parts = expression.split('-');
+      res = double.parse(parts[0]) - double.parse(parts[1]);
+    } else if (expression.contains('*')) {
+      var parts = expression.split('*');
+      res = double.parse(parts[0]) * double.parse(parts[1]);
+    } else if (expression.contains('/')) {
+      var parts = expression.split('/');
+      res = double.parse(parts[0]) / double.parse(parts[1]);
+    }
+    return res.toString();
+  }
+
+  Widget buildButton(String text) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: ElevatedButton(
+          onPressed: () => buttonPressed(text),
+          child: Text(text, style: TextStyle(fontSize: 24)),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Simple Calculator')),
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(16),
+              alignment: Alignment.bottomRight,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(input, style: TextStyle(fontSize: 32)),
+                  SizedBox(height: 10),
+                  Text(result, style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+          ),
+          Column(
+            children: [
+              Row(children: [buildButton('7'), buildButton('8'), buildButton('9'), buildButton('/')]),
+              Row(children: [buildButton('4'), buildButton('5'), buildButton('6'), buildButton('*')]),
+              Row(children: [buildButton('1'), buildButton('2'), buildButton('3'), buildButton('-')]),
+              Row(children: [buildButton('0'), buildButton('C'), buildButton('='), buildButton('+')]),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+Task 10: Shopping Cart App
+
+Code Example:
+import 'package:flutter/material.dart';
+
+void main() => runApp(ShoppingCartApp());
+
+class ShoppingCartApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: ShoppingCartScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class ShoppingCartScreen extends StatefulWidget {
+  @override
+  _ShoppingCartScreenState createState() => _ShoppingCartScreenState();
+}
+
+class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
+  int cartCount = 0;
+  List<String> items = ['Apple', 'Banana', 'Orange', 'Grapes', 'Mango'];
+
+  void addToCart() {
+    setState(() {
+      cartCount++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Shopping Cart'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text('Cart: $cartCount', style: TextStyle(fontSize: 18)),
+          ),
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(items[index]),
+            trailing: ElevatedButton(
+              onPressed: addToCart,
+              child: Text('Add to Cart'),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+Task 11: Increment & Decrement Counter
+Row(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    ElevatedButton(onPressed: () => setState(() => count++), child: Text("+")),
+    ElevatedButton(onPressed: () => setState(() => count--), child: Text("-")),
+  ],
+)
+
+Task 12: Toggle Background Color
+Switch(
+  value: isDark,
+  onChanged: (value) {
+    setState(() => isDark = value);
+  },
+)
+
+4. IMAGES & MEDIA
+Task 13: Change Network Image
+Image.network(imageUrl);
+
+Task 14:GridView to display
+import 'package:flutter/material.dart'; void main() => runApp(MaterialApp(home: Scaffold(appBar: AppBar(title: Text('Gallery')), body: GridView.count(crossAxisCount: 2, children: List.generate(4, (i) => Image.network('https://picsum.photos/id/${1015 + i}/400/400', loadingBuilder: (c, child, p) => p == null ? child : Center(child: CircularProgressIndicator())))))));
+
+
+Task 15: Asset Image
+Image.asset("assets/image.png", fit: BoxFit.cover);
+
+
+(Add image to pubspec.yaml)
+
+Task 16:an image carousel with auto-slide
+
+import 'package:flutter/material.dart'; import 'dart:async'; void main() => runApp(MaterialApp(home: Builder(builder:(c){final p=PageController();int i=0;Timer.periodic(Duration(seconds:3),(t)=>p.animateToPage(i=(i+1)%4,duration:Duration(milliseconds:500),curve:Curves.easeInOut));return Scaffold(appBar:AppBar(title:Text('Carousel')),body:PageView(controller:p,children:List.generate(4,(j)=>Image.network('https://picsum.photos/id/${1015+j}/400/300',fit:BoxFit.cover))));})));
+
+
+5. FORMS & INPUT
+Task 17: Registration Form (Validation)
+TextFormField(
+  validator: (value) {
+    if (!value!.contains("@")) return "Invalid Email";
+    return null;
+  },
+)
+
+Task 18: Feedback Form (minimal)
+Column(children:[TextField(),DropdownButton(items:[DropdownMenuItem(child:Text('General'),value:'General')],onChanged:(v){})]);
+
+Task 19: Search Bar (minimal)
+Column(children:[TextField(onChanged:(q){}),ListView(children:[Text('Suggestion 1'),Text('Suggestion 2')])]);
+
+Task 20: Task Manager (minimal)
+Column(children:[TextField(),CheckboxListTile(title:Text('Task 1'),value:false,onChanged:(v){})]);
+
+
+6. NAVIGATION
+Task 21: Two Screen Navigation
+Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => SecondScreen()),
+);
+
+Task 22: Three-screen app with Navigator.pushNamed and data passing
+MaterialApp(
+  routes: {
+    '/': (c) => Scaffold(body: Center(child: ElevatedButton(onPressed: ()=>Navigator.pushNamed(c,'/details', arguments:'Hello!'), child: Text('Go')))),
+    '/details': (c) => Scaffold(body: Center(child: Text(ModalRoute.of(c)!.settings.arguments as String))),
+    '/settings': (c) => Scaffold(body: Center(child: Text('Settings'))),
+  },
+);
+
+Task 23: Navigation drawer switching between Home, Profile, Settings
+Scaffold(
+  appBar: AppBar(title: Text('Home')),
+  drawer: Drawer(child: ListView(children:[
+    ListTile(title: Text('Home'), onTap: ()=>Navigator.pushNamed(context,'/')),
+    ListTile(title: Text('Profile'), onTap: ()=>Navigator.pushNamed(context,'/profile')),
+    ListTile(title: Text('Settings'), onTap: ()=>Navigator.pushNamed(context,'/settings')),
+  ])),
+  body: Center(child: Text('Home Screen')),
+);
+
+
+Task 24: Bottom Navigation Bar
+BottomNavigationBar(
+  items: [
+    BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+    BottomNavigationBarItem(icon: Icon(Icons.message), label: "Messages"),
+    BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+  ],
+)
+
+7. LISTS & SCROLLING
+
+Task 25: Swipe to Delete
+Dismissible(
+  key: Key(item),
+  onDismissed: (_) => setState(() => items.remove(item)),
+  child: ListTile(title: Text(item)),
+)
+
+Task 26: Infinite Scrolling List
+ListView.builder(
+  itemCount: items.length,
+  controller: _scrollController,
+  itemBuilder: (c,i){
+    if(i==items.length-1) items.addAll(List.generate(10,(j)=>items.length+j));
+    return ListTile(title: Text('Item ${items[i]}'));
+  }
+);
+
+Task 27: Custom-styled ListTile
+ListView(
+  children: List.generate(10,(i)=>ListTile(
+    leading: Icon(Icons.person),
+    title: Text('User $i'),
+    trailing: IconButton(icon: Icon(Icons.delete), onPressed: (){}),
+  )),
+)
+
+Task 28: Horizontal Product Listing
+SizedBox(
+  height:200,
+  child: ListView(
+    scrollDirection: Axis.horizontal,
+    children: List.generate(5,(i)=>Card(child: Column(
+      children:[
+        Image.network('https://via.placeholder.com/100', height:100),
+        Text('Product $i'), Text('\$${i*10}')
+      ]
+    )))
+  )
+)
+
+
+8. STACK & POSITIONED
+Task 29: Overlay Effect
+Stack(
+  children: [
+    Image.network("https://picsum.photos/300"),
+    Positioned(
+      bottom: 10,
+      child: Text("Overlay Text", style: TextStyle(color: Colors.white)),
+    ),
+  ],
+)
+
+Task 30: Basic Profile Page
+Stack(
+  alignment: Alignment.topCenter,
+  children: [
+    Positioned(top:50, child: CircleAvatar(radius:50, backgroundImage: NetworkImage('https://via.placeholder.com/100'))),
+    Positioned(top:150, child: Column(children:[Text('John Doe', style: TextStyle(fontSize:24)), Text('Bio goes here')])),
+  ],
+)
+
+Task 31: Card UI with Floating Action Button
+Stack(
+  children:[
+    Card(margin:EdgeInsets.all(20), child: Container(height:200, width:double.infinity, child: Center(child:Text('Card Content')))),
+    Positioned(bottom:30,right:30,child: FloatingActionButton(onPressed: (){}, child: Icon(Icons.add))),
+  ],
+)
+
+Task 32: Custom Button with Icon Above Text
+Stack(
+  alignment: Alignment.center,
+  children:[
+    ElevatedButton(onPressed: (){}, child: Padding(padding: EdgeInsets.only(top:20), child: Text('Click'))),
+    Positioned(top:0, child: Icon(Icons.star, size:30, color:Colors.yellow)),
+  ],
+)
+
+
+9. ANIMATIONS
+Task 33:Fade-in Network Image
+FadeInImage.assetNetwork(
+  placeholder: 'assets/placeholder.png',
+  image: 'https://via.placeholder.com/150',
+  fadeInDuration: Duration(seconds:1),
+)
+
+Task 34: Expand/collapse a section using AnimatedContainer
+
+AnimatedContainer(
+  duration: Duration(milliseconds:300),
+  height: expanded?200:50,
+  color: Colors.blue,
+  child: Center(child: ElevatedButton(onPressed: ()=>setState(()=>expanded=!expanded), child: Text('Toggle'))),
+)
+
+
+Task 35: Pulsing button using TweenAnimationBuilder
+
+TweenAnimationBuilder(
+  tween: Tween<double>(begin:1,end:1.2),
+  duration: Duration(seconds:1),
+  builder:(c,size,child)=>Transform.scale(scale:size,child:ElevatedButton(onPressed:(){},child:Text('Pulse'))),
+  onEnd: ()=>setState(()=>{}),
+)
+Task 36: Slide transition between screens using PageRouteBuilder
+
+Navigator.push(context, PageRouteBuilder(
+  pageBuilder:(c,a1,a2)=>SecondScreen(),
+  transitionsBuilder:(c,a1,a2,child)=>SlideTransition(position: Tween<Offset>(begin:Offset(1,0), end:Offset(0,0)).animate(a1), child: child),
+));
+10. State Management with Provider
+ 
+Task 37: Counter App with Provider
+
+class Counter extends ChangeNotifier { int value=0; void increment(){ value++; notifyListeners(); } }
+ChangeNotifierProvider(create:(_)=>Counter(), child: Consumer<Counter>(
+  builder:(c,counter,_)=>Column(
+    children:[
+      Text('${counter.value}'),
+      ElevatedButton(onPressed:()=>counter.increment(), child: Text('Increment'))
+    ]
+  )
+));
+
+
+Task 38: Shopping Cart with Real-time Total
+
+class Cart extends ChangeNotifier { double total=0; void add(double p){ total+=p; notifyListeners(); } }
+ChangeNotifierProvider(create:(_)=>Cart(), child: Consumer<Cart>(
+  builder:(c,cart,_)=>Column(
+    children:[
+      Text('Total: \$${cart.total}'),
+      ElevatedButton(onPressed:()=>cart.add(10), child: Text('Add Item \$10'))
+    ]
+  )
+));
+
+Task 39: Theme Switcher with Provider
+
+class ThemeModel extends ChangeNotifier { bool dark=false; void toggle(){ dark=!dark; notifyListeners(); } }
+ChangeNotifierProvider(create:(_)=>ThemeModel(), child: Consumer<ThemeModel>(
+  builder:(c,theme,_)=>MaterialApp(
+    theme: theme.dark?ThemeData.dark():ThemeData.light(),
+    home: Scaffold(body: ElevatedButton(onPressed:()=>theme.toggle(), child: Text('Toggle Theme')))
+  )
+));
+
+Task 40: Simple Authentication Flow with Provider
+
+class Auth extends ChangeNotifier { bool loggedIn=false; void login(){ loggedIn=true; notifyListeners(); } void logout(){ loggedIn=false; notifyListeners(); } }
+ChangeNotifierProvider(create:(_)=>Auth(), child: Consumer<Auth>(
+  builder:(c,auth,_)=>auth.loggedIn?Scaffold(body: ElevatedButton(onPressed:()=>auth.logout(), child:Text('Logout'))):Scaffold(body: ElevatedButton(onPressed:()=>auth.login(), child:Text('Login')))
+));
+
+11. CUSTOM WIDGET
+Task 41: Custom RatingWidget
+
+class RatingWidget extends StatefulWidget { @override State<RatingWidget> createState()=>_RatingWidgetState(); }
+class _RatingWidgetState extends State<RatingWidget> {
+  int rating=0;
+  @override
+  Widget build(BuildContext context) => Row(
+    mainAxisSize: MainAxisSize.min,
+    children: List.generate(5,(i)=>IconButton(
+      icon: Icon(i<rating?Icons.star:Icons.star_border, color: Colors.amber),
+      onPressed: ()=>setState(()=>rating=i+1),
+    )),
+  );
+}
+
+
+Task 42: Custom ProgressBar Widget
+
+class ProgressBar extends StatelessWidget {
+  final double percent;
+  ProgressBar({required this.percent});
+  @override
+  Widget build(BuildContext context) => Container(
+    height:20, width:200, decoration: BoxDecoration(border:Border.all(), borderRadius:BorderRadius.circular(10)),
+    child: FractionallySizedBox(widthFactor: percent/100, alignment: Alignment.centerLeft, child: Container(decoration: BoxDecoration(color:Colors.blue, borderRadius:BorderRadius.circular(10)))),
+  );
+}
+
+Task 43: Custom ProfileCard Widget
+
+class ProfileCard extends StatelessWidget {
+  final String name, bio, image;
+  ProfileCard({required this.name, required this.bio, required this.image});
+  @override
+  Widget build(BuildContext context) => Card(
+    child: Padding(
+      padding: EdgeInsets.all(10),
+      child: Column(
+        children: [
+          CircleAvatar(radius:40, backgroundImage: NetworkImage(image)),
+          SizedBox(height:10),
+          Text(name, style: TextStyle(fontSize:18, fontWeight: FontWeight.bold)),
+          Text(bio),
+        ],
+      ),
+    ),
+  );
+}
+
+Task 44: Custom AvatarBadge Widget
+
+class AvatarBadge extends StatelessWidget {
+  final String image; final bool online;
+  AvatarBadge({required this.image, this.online=false});
+  @override
+  Widget build(BuildContext context) => Stack(
+    children: [
+      CircleAvatar(radius:30, backgroundImage: NetworkImage(image)),
+      if(online) Positioned(bottom:0,right:0, child: CircleAvatar(radius:8, backgroundColor:Colors.green))
+    ],
+  );
+}
+
+1. Profile Screen Layout:
+
+Scaffold(
+  body: Container(
+    padding: EdgeInsets.all(20),
+    child: Column(
+      children: [
+        Image.network('https://via.placeholder.com/100', height:100, width:100),
+        SizedBox(height:10),
+        Text('John Doe', style: TextStyle(fontSize:24, fontWeight: FontWeight.bold)),
+        Text('Flutter Developer', style: TextStyle(color: Colors.grey)),
+        Row(mainAxisAlignment: MainAxisAlignment.center, children:[
+          Icon(Icons.email), SizedBox(width:5), Text('john@example.com')
+        ]),
+      ],
+    ),
+  ),
+)
+
+2. Product Catalog List of Cards:
+
+ListView(
+  children: List.generate(5,(i)=>Card(
+    child: ListTile(
+      leading: Image.network('https://via.placeholder.com/50'),
+      title: Text('Product $i'),
+      subtitle: Text('\$${i*10}'),
+    ),
+  )),
+)
+
+3. Custom Button with Container, Padding, and Text:
+
+GestureDetector(
+  onTap: (){},
+  child: Container(
+    padding: EdgeInsets.symmetric(horizontal:20, vertical:10),
+    decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(10)),
+    child: Text('Custom Button', style: TextStyle(color: Colors.white)),
+  ),
+)
+
+
+

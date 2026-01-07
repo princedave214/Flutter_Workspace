@@ -1,0 +1,426 @@
+Module 3 – Introduction to OOPS Programming (C++)
+1. Introduction to C++
+LAB EXERCISES
+1. First C++ Program – Hello World
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    cout << "Hello, World!";
+    return 0;
+}
+
+
+Objective:
+This program demonstrates the basic structure of a C++ program using #include, main(), and cout.
+
+2. Basic Input/Output
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    string name;
+    int age;
+
+    cout << "Enter your name: ";
+    cin >> name;
+
+    cout << "Enter your age: ";
+    cin >> age;
+
+    cout << "Hello " << name << "! You are " << age << " years old.";
+    return 0;
+}
+
+
+Objective:
+Practice using cin for input and cout for output.
+
+3. POP vs OOP Comparison Program
+Procedural Programming (POP)
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int length, width;
+    cout << "Enter length and width: ";
+    cin >> length >> width;
+
+    int area = length * width;
+    cout << "Area of Rectangle = " << area;
+    return 0;
+}
+
+Object-Oriented Programming (OOP)
+#include <iostream>
+using namespace std;
+
+class Rectangle
+{
+public:
+    int length, width;
+    int area()
+    {
+        return length * width;
+    }
+};
+
+int main()
+{
+    Rectangle r;
+    cout << "Enter length and width: ";
+    cin >> r.length >> r.width;
+
+    cout << "Area of Rectangle = " << r.area();
+    return 0;
+}
+
+
+Objective:
+Shows the difference between POP (function-based) and OOP (class-based).
+
+4. Program to Add Two Numbers
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int a, b;
+    cout << "Enter two numbers: ";
+    cin >> a >> b;
+
+    cout << "Sum = " << a + b;
+    return 0;
+}
+
+
+Objective:
+Helps students run programs after setting up an IDE like Dev-C++ or CodeBlocks.
+
+THEORY EXERCISES
+1. POP vs    Differences OOP
+Procedural Programming	 Object-Oriented Programming
+Function-oriented	 Object-oriented
+Less secure	         More secure
+No data hiding	         Data encapsulation
+Hard to maintain	 Easy to maintain
+2. Advantages of OOP
+
+Code reusability
+
+Better security
+
+Easy maintenance
+
+Real-world modeling
+
+Scalability
+
+3. Steps to Set Up C++ Environment
+
+Install IDE (Dev-C++, CodeBlocks)
+
+Install compiler (GCC)
+
+Create a new C++ project
+
+Write and save code
+
+Compile and run
+
+4. Input/Output Operations
+
+cin → Input
+
+cout → Output
+
+Example:
+
+cin >> x;
+cout << x;
+
+2. Variables, Data Types, and Operators
+LAB EXERCISES
+1. Variables and Constants
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int a = 10;
+    float b = 5.5;
+    const int c = 20;
+
+    cout << a + b + c;
+    return 0;
+}
+
+2. Type Conversion
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int a = 5;
+    double b = a;          // Implicit
+    double x = 9.7;
+    int y = (int)x;        // Explicit
+
+    cout << b << endl << y;
+    return 0;
+}
+
+3. Operator Demonstration
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int a = 10, b = 3;
+    cout << a + b << endl;
+    cout << a > b << endl;
+    cout << (a && b) << endl;
+    cout << (a & b);
+    return 0;
+}
+
+THEORY EXERCISES
+1. Data Types in C++
+
+int, float, double, char, bool
+
+2. Implicit vs Explicit Conversion
+
+Implicit: automatic
+
+Explicit: manual type casting
+
+3. Types of Operators
+
+Arithmetic: + - * /
+
+Relational: < > ==
+
+Logical: && || !
+
+Bitwise: & | ^
+
+4. Constants and Literals
+
+Constants: fixed values (const int x=10)
+
+Literals: direct values (10, 3.14)
+
+3. Control Flow Statements
+LAB EXERCISES
+1. Grade Calculator
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int marks;
+    cin >> marks;
+
+    if (marks >= 90) cout << "Grade A";
+    else if (marks >= 75) cout << "Grade B";
+    else if (marks >= 50) cout << "Grade C";
+    else cout << "Fail";
+    return 0;
+}
+
+2. Number Guessing Game
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int num = 50, guess;
+    do
+    {
+        cin >> guess;
+        if (guess > num) cout << "Too High\n";
+        else if (guess < num) cout << "Too Low\n";
+    } while (guess != num);
+
+    cout << "Correct!";
+    return 0;
+}
+
+3. Multiplication Table
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int n;
+    cin >> n;
+    for (int i = 1; i <= 10; i++)
+        cout << n << " x " << i << " = " << n*i << endl;
+    return 0;
+}
+
+4. Star Pattern
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    for(int i=1;i<=5;i++)
+    {
+        for(int j=1;j<=i;j++)
+            cout<<"* ";
+        cout<<endl;
+    }
+    return 0;
+}
+
+4. Functions and Scope
+Calculator Using Functions
+#include <iostream>
+using namespace std;
+
+int add(int a,int b){ return a+b; }
+
+int main()
+{
+    cout << add(5,3);
+    return 0;
+}
+
+Factorial Using Recursion
+#include <iostream>
+using namespace std;
+
+int fact(int n)
+{
+    if(n==0) return 1;
+    return n*fact(n-1);
+}
+
+int main()
+{
+    cout << fact(5);
+    return 0;
+}
+
+Variable Scope
+#include <iostream>
+using namespace std;
+
+int x = 10;
+
+void show()
+{
+    int x = 20;
+    cout << x << endl;
+}
+
+int main()
+{
+    show();
+    cout << x;
+    return 0;
+}
+
+5. Arrays and Strings
+Array Sum and Average
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int a[5], sum=0;
+    for(int i=0;i<5;i++)
+    {
+        cin>>a[i];
+        sum+=a[i];
+    }
+    cout<<"Sum="<<sum<<" Avg="<<sum/5.0;
+    return 0;
+}
+
+Matrix Addition
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int a[2][2], b[2][2], c[2][2];
+    for(int i=0;i<2;i++)
+        for(int j=0;j<2;j++)
+            cin>>a[i][j]>>b[i][j];
+
+    for(int i=0;i<2;i++)
+        for(int j=0;j<2;j++)
+            c[i][j]=a[i][j]+b[i][j];
+
+    return 0;
+}
+
+Palindrome Check
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+    string s;
+    cin >> s;
+    string r = string(s.rbegin(), s.rend());
+
+    if (s == r) cout << "Palindrome";
+    else cout << "Not Palindrome";
+    return 0;
+}
+
+6. Introduction to OOP
+Calculator Class
+class Calculator
+{
+public:
+    int add(int a,int b){ return a+b; }
+};
+
+Bank Account Class
+class BankAccount
+{
+private:
+    int balance;
+public:
+    void deposit(int amt){ balance+=amt; }
+    void withdraw(int amt){ balance-=amt; }
+};
+
+Inheritance Example
+class Person { };
+class Student : public Person { };
+class Teacher : public Person { };
+
+THEORY (OOP)
+OOP Concepts
+
+Encapsulation
+
+Inheritance
+
+Polymorphism
+
+Abstraction
+
+Class & Object
+
+Class: blueprint
+
+Object: instance
+
+Inheritance
+
+One class acquires properties of another
+
+Encapsulation
+
+Data hiding using private

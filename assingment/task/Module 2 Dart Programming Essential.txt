@@ -1,0 +1,377 @@
+Module 2: Dart Programming Essentials
+THEORY ASSIGNMENTS
+
+1. Fundamental Data Types in Dart
+
+Dart provides several built-in data types to store different kinds of values:
+
+int
+
+Stores whole numbers.
+
+Example: int age = 20;
+
+Used for counting, indexing, and numeric calculations.
+
+double
+
+Stores decimal numbers.
+
+Example: double price = 99.99;
+
+Used for measurements and precision values.
+
+String
+
+Stores text.
+
+Example: String name = "Flutter";
+
+Used for messages, names, and input/output.
+
+bool
+
+Stores true or false.
+
+Example: bool isLoggedIn = true;
+
+List
+
+Ordered collection of values.
+
+Example: List<int> numbers = [1, 2, 3];
+
+Used to store multiple related values.
+
+Set
+
+Unordered collection with unique values.
+
+Example: Set<int> ids = {1, 2, 3};
+
+Map
+
+Stores key-value pairs.
+
+Example: Map<String, int> marks = {'Math': 90};
+
+Used for structured data like dictionaries.
+
+dynamic
+
+Can store any type of value.
+
+Example: dynamic data = "Hello";
+
+2. Control Structures in Dart
+if-else
+if (age >= 18) {
+  print("Adult");
+} else {
+  print("Minor");
+}
+
+for loop
+for (int i = 1; i <= 5; i++) {
+  print(i);
+}
+
+while loop
+int i = 1;
+while (i <= 5) {
+  print(i);
+  i++;
+}
+
+switch
+switch (day) {
+  case 1:
+    print("Monday");
+    break;
+  default:
+    print("Invalid");
+}
+
+3. Object-Oriented Programming in Dart
+Class
+
+A blueprint for creating objects.
+
+class Student {
+  String name;
+  Student(this.name);
+}
+
+Inheritance
+
+One class inherits another.
+
+class Car extends Vehicle {}
+
+Polymorphism
+
+Same method behaves differently in different classes.
+
+Interfaces
+
+Achieved using implements.
+
+class Printer implements Machine {}
+
+4. Asynchronous Programming in Dart
+Future
+
+Represents a value available later.
+
+Future<String> fetchData() async {
+  return "Data Loaded";
+}
+
+async & await
+
+Used to write asynchronous code like synchronous code.
+
+await fetchData();
+
+Stream
+
+Handles multiple asynchronous values over time.
+
+PRACTICAL ASSIGNMENTS (DART PROGRAMS)
+Task 1: Name & Age Program
+import 'dart:io';
+
+void main() {
+  print("Enter your name:");
+  String name = stdin.readLineSync()!;
+
+  print("Enter your age:");
+  int age = int.parse(stdin.readLineSync()!);
+
+  print("Welcome $name! You will turn 100 in ${100 - age} years.");
+}
+
+Task 2: Temperature Conversion
+import 'dart:io';
+
+double cToF(double c) => (c * 9 / 5) + 32;
+double fToC(double f) => (f - 32) * 5 / 9;
+
+void main() {
+  print("1. Celsius to Fahrenheit\n2. Fahrenheit to Celsius");
+  int choice = int.parse(stdin.readLineSync()!);
+
+  print("Enter temperature:");
+  double temp = double.parse(stdin.readLineSync()!);
+
+  if (choice == 1) {
+    print("Result: ${cToF(temp)} °F");
+  } else {
+    print("Result: ${fToC(temp)} °C");
+  }
+}
+
+Task 3: Even or Odd
+import 'dart:io';
+
+void main() {
+  int n = int.parse(stdin.readLineSync()!);
+  print(n % 2 == 0 ? "Even" : "Odd");
+}
+
+Task 4: Circle Area & Circumference
+import 'dart:io';
+
+const double pi = 3.14159;
+
+void main() {
+  double r = double.parse(stdin.readLineSync()!);
+  print("Area: ${pi * r * r}");
+  print("Circumference: ${2 * pi * r}");
+}
+
+Task 5: FizzBuzz
+void main() {
+  for (int i = 1; i <= 100; i++) {
+    if (i % 15 == 0)
+      print("FizzBuzz");
+    else if (i % 3 == 0)
+      print("Fizz");
+    else if (i % 5 == 0)
+      print("Buzz");
+    else
+      print(i);
+  }
+}
+
+Task 6: Grading System
+import 'dart:io';
+
+void main() {
+  int score = int.parse(stdin.readLineSync()!);
+
+  if (score >= 90)
+    print("Grade A");
+  else if (score >= 80)
+    print("Grade B");
+  else if (score >= 70)
+    print("Grade C");
+  else if (score >= 60)
+    print("Grade D");
+  else
+    print("Grade F");
+}
+
+Task 7: Prime Number
+import 'dart:io';
+
+void main() {
+  int n = int.parse(stdin.readLineSync()!);
+  bool prime = true;
+
+  for (int i = 2; i <= n ~/ 2; i++) {
+    if (n % i == 0) {
+      prime = false;
+      break;
+    }
+  }
+  print(prime ? "Prime" : "Not Prime");
+}
+
+Task 8: Calculator
+import 'dart:io';
+
+void main() {
+  double a = double.parse(stdin.readLineSync()!);
+  double b = double.parse(stdin.readLineSync()!);
+  String op = stdin.readLineSync()!;
+
+  switch (op) {
+    case '+': print(a + b); break;
+    case '-': print(a - b); break;
+    case '*': print(a * b); break;
+    case '/': print(a / b); break;
+  }
+}
+
+Task 9: Factorial
+int factorial(int n) => n == 0 ? 1 : n * factorial(n - 1);
+
+Task 10: Palindrome
+bool isPalindrome(String s) {
+  return s == s.split('').reversed.join();
+}
+
+Task 11: Fibonacci (Recursive)
+int fib(int n) => n <= 1 ? n : fib(n - 1) + fib(n - 2);
+
+Task 12: Largest & Smallest
+void findMinMax(List<int> list) {
+  print("Min: ${list.reduce((a, b) => a < b ? a : b)}");
+  print("Max: ${list.reduce((a, b) => a > b ? a : b)}");
+}
+
+Task 13: Sort Without Built-in
+void bubbleSort(List<int> list) {
+  for (int i = 0; i < list.length; i++) {
+    for (int j = 0; j < list.length - 1; j++) {
+      if (list[j] > list[j + 1]) {
+        int t = list[j];
+        list[j] = list[j + 1];
+        list[j + 1] = t;
+      }
+    }
+  }
+}
+
+Task 14: Remove Duplicates
+void main() {
+  List<String> words = ["apple", "banana", "apple"];
+  var unique = words.toSet().toList()..sort();
+  print(unique);
+}
+
+Task 15: Character Frequency
+void main() {
+  String text = "hello";
+  Map<String, int> freq = {};
+
+  for (var ch in text.split('')) {
+    freq[ch] = (freq[ch] ?? 0) + 1;
+  }
+  print(freq);
+}
+
+Task 16: Address Book
+Map<String, String> book = {};
+
+Task 17: Book Class
+class Book {
+  String title;
+  int year;
+
+  Book(this.title, this.year);
+
+  bool isOld() => DateTime.now().year - year > 10;
+}
+
+Task 18: BankAccount
+class BankAccount {
+  double balance = 0;
+
+  void deposit(double amt) => balance += amt;
+  void withdraw(double amt) {
+    if (amt <= balance) balance -= amt;
+  }
+}
+
+Task 19: Vehicle Hierarchy
+class Vehicle {
+  void details() {}
+}
+
+class Car extends Vehicle {
+  void details() => print("Car - Petrol - 180km/h");
+}
+
+Task 20: Shopping Cart
+class Product {
+  String name;
+  double price;
+  Product(this.name, this.price);
+}
+
+Task 21: Division Exception
+try {
+  print(a ~/ b);
+} catch (e) {
+  print("Cannot divide by zero");
+}
+
+Task 25: Future.delayed
+Future.delayed(Duration(seconds: 3), () {
+  print("Completed");
+});
+
+Task 29: Spread Operator
+var list = {...list1, ...list2}.toList()..sort();
+
+Task 31: async Stream*
+Stream<int> count() async* {
+  for (int i = 1; i <= 5; i++) {
+    yield i;
+  }
+}
+
+Task 33: intl Package
+import 'package:intl/intl.dart';
+print(DateFormat.yMMMMd().format(DateTime.now()));
+
+Task 36: File Read/Write
+import 'dart:io';
+
+void main() async {
+  File file = File('data.txt');
+  await file.writeAsString('Hello Dart');
+  print(await file.readAsString());
+}

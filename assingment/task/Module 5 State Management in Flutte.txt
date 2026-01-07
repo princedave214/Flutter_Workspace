@@ -1,0 +1,220 @@
+Module 5: State Management in Flutter
+Theory Assignments
+1. What is State Management and why is it important in Flutter?
+
+State refers to data that can change over time in an application, such as:
+
+Counter values
+
+User login status
+
+Shopping cart items
+
+To-do list entries
+
+State management is the process of managing this changing data and updating the UI accordingly.
+
+Why it’s important in Flutter
+
+Flutter rebuilds UI whenever state changes
+
+Without proper state management, apps become:
+
+Hard to maintain
+
+Bug-prone
+
+Difficult to scale
+
+Helps in:
+
+Separating UI and business logic
+
+Sharing data across multiple screens
+
+Improving performance and readability
+
+2. Comparison of Provider,           Riverpod        Bloc
+Feature		Provider             Riverpod	     Bloc
+Complexity	Easy	             Medium	     High
+Boilerplate	Low	             Low	     High
+Performance	Good	             Excellent	     Excellent
+Compile-time safety     No	     Yes	     Yes
+Learning curve	Beginner-friendly    Moderate	     Steep
+State style	Mutable  	     Immutable       Event-based
+
+3. Provider vs setState
+setState	        Provider
+Local state only	Global/shared state
+UI-dependent	        UI-independent
+Not scalable	        Scalable
+Simple	                Structured
+
+Key difference:
+setState rebuilds a single widget, while Provider allows state to be shared across the entire app.
+
+Practical Assignments
+1. Counter App using setState
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: CounterScreen(),
+    );
+  }
+}
+
+class CounterScreen extends StatefulWidget {
+  const CounterScreen({super.key});
+
+  @override
+  State<CounterScreen> createState() => _CounterScreenState();
+}
+
+class _CounterScreenState extends State<CounterScreen> {
+  int counter = 0;
+
+  void increment() {
+    setState(() {
+      counter++;
+    });
+  }
+
+  void decrement() {
+    setState(() {
+      counter--;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Counter App")),
+      body: Center(
+        child: Text(
+          counter.toString(),
+          style: const TextStyle(fontSize: 40),
+        ),
+      ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: increment,
+            child: const Icon(Icons.add),
+          ),
+          const SizedBox(width: 10),
+          FloatingActionButton(
+            onPressed: decrement,
+            child: const Icon(Icons.remove),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+2. Shopping Cart using Provider
+Step 1: Add dependency
+dependencies:
+  provider: ^6.0.5
+
+Step 2: Cart Model
+import 'package:flutter/material.dart';
+
+class CartProvider with ChangeNotifier {
+  final List<String> _items = [];
+
+  List<String> get items => _items;
+
+  void addItem(String item) {
+    _items.add(item);
+    notifyListeners();
+  }
+}
+
+Step 3: Main App
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => CartProvider(),
+      child: const MyApp(),
+    ),
+  );
+}
+
+Step 4: UI
+class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final cart = Provider.of<CartProvider>(context);
+
+    return Scaffold(
+      appBar: AppBar(title: const Text("Shopping Cart")),
+      body: ListView.builder(
+        itemCount: cart.items.length,
+        itemBuilder: (context, index) {
+          return ListTile(title: Text(cart.items[index]));
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          cart.addItem("Item ${cart.items.length + 1}");
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+3. To-Do List using Riverpod
+Step 1: Add dependency
+dependencies:
+  flutter_riverpod: ^2.4.0
+
+Step 2: Provider
+final todoProvider = StateProvider<List<String>>((ref) => []);
+
+Step 3: Main App
+void main() {
+  runApp(const ProviderScope(child: MyApp()));
+}
+
+Step 4: UI
+class TodoScreen extends ConsumerWidget {
+  const TodoScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final todos = ref.watch(todoProvider);
+
+    return Scaffold(
+      appBar: AppBar(title: const Text("To-Do App")),
+      body: ListView.builder(
+        itemCount: todos.length,
+        itemBuilder: (context, index) {
+          return ListTile(title: Text(todos[index]));
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          ref.read(todoProvider.notifier).state = [
+            ...todos,
+            "Task ${todos.length + 1}"
+          ];
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}

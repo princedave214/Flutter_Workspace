@@ -1,0 +1,175 @@
+Module 7: Networking and API Integration
+
+Theory Assignments
+
+1. What is a RESTful API and its importance in mobile applications?
+
+A RESTful API (Representational State Transfer API) is a web service that allows applications to communicate with a server using standard HTTP methods. It follows a stateless architecture and usually exchanges data in JSON format.
+
+Key Characteristics of RESTful APIs
+
+Uses HTTP methods (GET, POST, PUT, DELETE)
+
+Stateless (each request is independent)
+
+Data is usually in JSON format
+
+Works over the internet
+
+Importance in Mobile Applications
+
+Enables apps to fetch real-time data (weather, news, movies)
+
+Allows integration with backend servers
+
+Helps in authentication, data storage, and cloud services
+
+Makes apps dynamic instead of static
+
+Example: A weather app fetching live temperature data from an online server.
+
+2. How JSON data is parsed and used in Flutter
+
+JSON (JavaScript Object Notation) is a lightweight data format used to exchange data between server and client.
+
+Steps to Parse JSON in Flutter
+
+Fetch JSON data using the http package
+
+Decode JSON using jsonDecode()
+
+Convert JSON into Dart objects
+
+Display data in UI
+
+Example JSON
+{
+  "title": "Flutter News",
+  "author": "Admin"
+}
+
+Flutter Parsing Example
+import 'dart:convert';
+
+Map<String, dynamic> data = jsonDecode(jsonString);
+print(data['title']);
+
+
+ JSON parsing allows Flutter apps to display API data easily.
+
+3. Purpose of HTTP Methods
+Method	Purpose	When to Use
+GET	Retrieve data	Fetch weather, news, movies
+POST	Send data	Login, register
+PUT	Update data	Edit user profile
+DELETE	Remove data	Delete records
+Example
+
+GET - Fetch list of movies
+
+POST - Submit feedback
+
+PUT - Update user details
+
+DELETE - Remove account
+
+Practical Assignments
+1. Basic Weather App (API Fetching)
+Add Dependency (pubspec.yaml)
+dependencies:
+  http: ^1.1.0
+
+Weather App Example
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: WeatherApp());
+  }
+}
+
+class WeatherApp extends StatefulWidget {
+  @override
+  _WeatherAppState createState() => _WeatherAppState();
+}
+
+class _WeatherAppState extends State<WeatherApp> {
+  String temperature = "Loading...";
+
+  Future<void> fetchWeather() async {
+    final response = await http.get(
+      Uri.parse('https://api.open-meteo.com/v1/forecast?latitude=28.6&longitude=77.2&current_weather=true'),
+    );
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      setState(() {
+        temperature = data['current_weather']['temperature'].toString();
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchWeather();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Weather App")),
+      body: Center(
+        child: Text("Temperature: $temperature °C",
+            style: TextStyle(fontSize: 22)),
+      ),
+    );
+  }
+}
+
+2. News Feed App (API List Display)
+Future<List> fetchNews() async {
+  final response = await http.get(
+    Uri.parse('https://jsonplaceholder.typicode.com/posts'),
+  );
+  return jsonDecode(response.body);
+}
+
+ListView.builder(
+  itemCount: news.length,
+  itemBuilder: (context, index) {
+    return ListTile(
+      title: Text(news[index]['title']),
+      subtitle: Text(news[index]['body']),
+    );
+  },
+);
+
+
+ Uses GET request and displays articles in a list.
+
+3. Movie Search App (User Input + API)
+Future<void> searchMovie(String movie) async {
+  final response = await http.get(
+    Uri.parse('https://www.omdbapi.com/?s=$movie&apikey=YOUR_API_KEY'),
+  );
+  var data = jsonDecode(response.body);
+  setState(() {
+    movies = data['Search'];
+  });
+}
+
+TextField(
+  onSubmitted: (value) {
+    searchMovie(value);
+  },
+  decoration: InputDecoration(
+    labelText: "Search Movie",
+    border: OutlineInputBorder(),
+  ),
+);

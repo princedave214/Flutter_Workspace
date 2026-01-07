@@ -1,0 +1,219 @@
+Module 8: Local Storage and Persistence
+
+Theory Assignments
+
+1. Difference between local storage options (SharedPreferences, SQLite, Hive)
+ Feature        SharedPreferences      SQLite                     Hive                 
+ Data type      Key–value pairs        Relational (tables, rows)  Key–value / object-based 
+ Complexity     Very simple            Complex (SQL queries)      Simple to moderate       
+ Data size      Small data only        Large & structured data    Small to large           
+ Performance    Fast for small data    Slower due to SQL          Very fast                
+ Use case       Settings, login state  Complex data, offline DB   Cached data, models      
+ Schema         No schema              Fixed schema               No schema                
+ Flutter setup  Built-in plugin        Needs sqflite package      Needs hive package       
+
+
+Summary:
+
+SharedPreferences = Small, simple data
+
+SQLite = Structured, relational data
+
+Hive = Fast local storage for Dart objects
+
+2. CRUD operations and how they are implemented in SQLite or Hive
+
+CRUD stands for:
+
+Operation	Meaning
+Create	        Insert new data
+Read	        Retrieve data
+Update	        Modify existing data
+Delete      	Remove data
+CRUD            in SQLite
+
+Uses SQL queries.
+
+Create - INSERT INTO
+
+Read - SELECT * FROM
+
+Update - UPDATE table SET
+
+Delete - DELETE FROM table
+
+Example:
+
+INSERT INTO tasks(title) VALUES('Buy Milk');
+SELECT * FROM tasks;
+UPDATE tasks SET title='Buy Bread' WHERE id=1;
+DELETE FROM tasks WHERE id=1;
+
+CRUD in Hive
+
+Uses Box operations (No SQL).
+
+Create → box.add()
+
+Read → box.values
+
+Update → box.putAt()
+
+Delete → box.deleteAt()
+
+Example:
+
+box.add("Buy Milk");
+box.putAt(0, "Buy Bread");
+box.deleteAt(0);
+
+3. Advantages and use cases of SharedPreferences
+
+Advantages:
+
+Simple to use
+
+Fast access
+
+No database setup required
+
+Ideal for storing small data
+
+Use Cases:
+
+Login status (isLoggedIn)
+
+Theme preference (dark/light mode)
+
+Language selection
+
+App settings (notifications enabled)
+
+Practical Assignments
+1. App using SharedPreferences to store user preferences
+
+Example: Store and display username.
+
+Steps:
+
+Add dependency:
+
+dependencies:
+  shared_preferences: ^2.2.2
+
+
+Code Example:
+
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class PreferencesApp extends StatefulWidget {
+  @override
+  _PreferencesAppState createState() => _PreferencesAppState();
+}
+
+class _PreferencesAppState extends State<PreferencesApp> {
+  String username = "";
+
+  Future<void> saveName(String name) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('username', name);
+  }
+
+  Future<void> loadName() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      username = prefs.getString('username') ?? "";
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Shared Preferences")),
+      body: Column(
+        children: [
+          TextField(onSubmitted: saveName),
+          ElevatedButton(onPressed: loadName, child: Text("Load Name")),
+          Text("Saved Name: $username"),
+        ],
+      ),
+    );
+  }
+}
+
+2. To-Do List App using Hive (Add, Update, Delete, View)
+
+Dependencies:
+
+dependencies:
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+
+Initialization (main.dart):
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox('tasks');
+  runApp(MyApp());
+}
+
+
+CRUD Example:
+
+var box = Hive.box('tasks');
+
+// Add
+box.add("Buy groceries");
+
+// Read
+List tasks = box.values.toList();
+
+// Update
+box.putAt(0, "Buy vegetables");
+
+// Delete
+box.deleteAt(0);
+
+3. Simple Notes App (Local Storage)
+
+Features:
+
+Add notes
+
+Display list of notes
+
+Delete notes
+
+Saved locally using Hive
+
+Concept:
+
+Each note stored as a String
+
+Notes persist after app restart
+
+Example:
+
+box.add("Meeting at 10 AM");
+
+
+Why Hive?
+
+Fast
+
+No SQL
+
+Easy for beginners
+
+Conclusion
+
+Use SharedPreferences for simple app settings
+
+Use Hive for fast, offline local storage
+
+Use SQLite for complex relational data
+
+CRUD operations are essential for persistent apps

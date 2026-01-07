@@ -1,0 +1,182 @@
+Flutter Assignments
+Module 1: Introduction to Mobile Development and Flutter
+THEORY ASSIGNMENTS
+1. Benefits of Using Flutter Over Other Cross-Platform Frameworks
+
+Flutter is a popular cross-platform framework developed by Google. It offers several advantages over other frameworks like React Native, Xamarin, and Ionic.
+
+Benefits:
+
+Single Codebase: One codebase for Android, iOS, web, and desktop.
+
+High Performance: Uses Dart and compiles to native ARM code.
+
+Hot Reload: Changes reflect instantly without restarting the app.
+
+Rich UI: Provides beautiful, customizable widgets.
+
+Open Source: Free and supported by a large community.
+
+Consistent UI: Same look and behavior across platforms.
+
+2. Role of Dart in Flutter & Its Advantages
+
+Dart is the programming language used to build Flutter applications.
+
+Role of Dart in Flutter:
+
+Controls app logic, UI layout, and animations.
+
+Compiles directly to native machine code.
+
+Works efficiently with Flutter’s widget system.
+
+Advantages of Dart:
+
+Easy to learn (similar to C++, Java)
+
+Fast execution and performance
+
+Supports Hot Reload
+
+Strong typing reduces runtime errors
+
+Optimized for UI development
+
+3. Steps to Set Up Flutter Development Environment
+
+Step-by-Step Setup:
+
+Download Flutter SDK from flutter.dev
+
+Extract SDK and add Flutter to system PATH
+
+Install Android Studio
+
+Install Flutter & Dart plugins in Android Studio
+
+Set up Android Emulator or connect a physical device
+
+Verify installation using:
+
+flutter doctor
+
+4. Basic Flutter App Structure
+
+A Flutter app follows a widget-based architecture.
+
+Key Components:
+
+main.dart: Entry point of the app
+
+main() function: Starts the app using runApp()
+
+Widget Tree: UI built using nested widgets
+
+Example Structure:
+
+void main() {
+  runApp(MyApp());
+}
+
+
+MyApp is a widget
+
+Widgets form a tree (MaterialApp → Scaffold → Text)
+
+PRACTICAL ASSIGNMENTS
+1. Verify Flutter Installation Using flutter doctor
+
+Open terminal or command prompt and run:
+
+flutter doctor
+
+This command checks:
+
+Flutter SDK
+
+Android SDK
+
+Emulator setup
+
+Dart installation
+
+2. Create a Flutter Project with Personalized “Hello World”
+
+Create Project:
+
+flutter create hello_flutter
+cd hello_flutter
+flutter run
+
+
+Edit lib/main.dart:
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Flutter Assignment'),
+        ),
+        body: Center(
+          child: Text(
+            'Hello, Prince!',
+            style: TextStyle(fontSize: 24),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+3. Customize Background Color and Text Styles
+
+Updated Code with Styling:
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: Colors.lightBlueAccent,
+        appBar: AppBar(
+          title: Text('Flutter Welcome App'),
+        ),
+        body: Center(
+          child: Text(
+            'Welcome, Prince!',
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+Customization Used:
+Background color
+Font size
+Font color
+Font style
+Font weight

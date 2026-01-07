@@ -1,0 +1,168 @@
+1. Waterfall Model
+
+Definition:
+A linear sequential model where each phase must be completed before moving to the next.
+
+Phases:
+Requirement Analysis
+System Design
+Implementation
+Testing
+Deployment
+Maintenance
+
+Diagram:
+Requirement → Design → Implementation → Testing → Deployment → Maintenance
+Features:
+Simple and easy to use.
+Phases do not overlap.
+Best for small, clear projects.
+
+Benefits:
+Easy to manage due to rigidity.
+Works well when requirements are fixed.
+Example:
+Developing a calculator app with fixed features.
+
+2. Agile Model
+
+Definition:
+An iterative and incremental model focusing on flexibility and customer collaboration.
+
+Phases (Repeated in each iteration):
+Plan
+Design
+Develop
+Test
+Release
+Feedback
+Diagram:
+Cycle: Planning → Design → Develop → Test → Review → Repeat
+Features:
+Adaptive to change.
+Fast delivery in small parts.
+Focuses on working software.
+Benefits:
+Better product quality.
+Customer satisfaction through frequent updates.
+Example:
+Creating an e-commerce app with regular feature updates.
+
+3. Scrum Model (A type of Agile)
+
+Definition:
+A framework under Agile using sprints to deliver product increments.
+
+Scrum Roles:
+Product Owner – Defines product features.
+Scrum Master – Facilitates the process.
+Development Team – Builds the product.
+Phases:
+Product Backlog → Sprint Planning → Sprint (2–4 weeks) → Daily Standups → Sprint Review → Retrospective
+Diagram:
+Product Backlog → Sprint Planning → Sprint → Review → Retrospective → Repeat
+Features:
+Delivers working product in sprints.
+Team collaboration and feedback.
+Benefits:
+High visibility and adaptability.
+Improved product quality with each sprint.
+Example:
+Developing a chat app with new features added every 2 weeks.
+
+4. Extreme Programming (XP)
+
+Definition:
+An Agile model focused on technical excellence and frequent releases.
+
+Core Practices:
+Pair programming
+Continuous integration
+Test-driven development (TDD)
+Small releases
+Diagram:
+Plan → Design → Code (in pairs) → Test (frequently) → Release → Feedback
+Features:
+Emphasizes code quality.
+Strong team communication.
+Benefits:
+Rapid delivery.
+High code reliability.
+Example:
+Building a fintech application where code must be error-free and secure.
+
+5. Spiral Model
+
+Definition:
+A risk-driven model combining iterative development and systematic aspects of waterfall.
+
+Phases (in each spiral loop):
+Identify Objectives
+Identify and Resolve Risks
+Development and Testing
+Plan Next Iteration
+Diagram:
+A spiral with loops: Planning → Risk Analysis → Engineering → Evaluation → Repeat
+Features:
+Emphasizes risk analysis.
+Suitable for large, complex projects.
+Benefits:
+Risk handling at each stage.
+Flexibility to change.
+Example:
+Military or aerospace software projects with high-risk factors.
+
+6. RAD (Rapid Application Development)
+
+Definition:
+A model that emphasizes rapid prototyping and fast feedback over long planning.
+
+Phases:
+Requirements Planning
+User Design
+Construction
+Cutover
+Diagram:
+Requirements → User Design (Prototype) → Construction → Implementation
+Features:
+Quick delivery.
+Uses reusable components.
+Benefits:
+Time-saving.
+Encourages user involvement.
+Example:
+Developing a simple business inventory system in weeks.
+
+7. Prototype Model
+
+Definition:
+A model where a working prototype is built to understand requirements.
+
+Phases:
+Requirements gathering
+Quick Design
+Build Prototype
+User Evaluation
+Refinement
+Final Product
+Diagram:
+User Requirements → Quick Design → Prototype → Evaluation → Refinement → Final Product
+Features:
+Early visibility to the customer.
+Helps clarify unclear requirements.
+Benefits:
+Reduces risk of failure.
+Better understanding of user needs.
+Example:
+Developing a new user interface for a mobile app.
+
+Comparison Table
+
+Model	Best For	Flexibility	Delivery Style	Risk Handling	Customer Involvement
+Waterfall	Small, clear projects	Low	One-time	Low	Low
+Agile	Evolving requirements	High	Iterative	Medium	High
+Scrum	Teams needing structure	High	Sprints	Medium	High
+XP	Technical excellence	High	Continuous	Medium	High
+Spiral	Risky, complex projects	Medium	Iterative	High	Medium
+RAD	Fast delivery apps	Medium	Prototyping	Medium	High
+Prototype	Unclear requirements	Medium	Refinement	Medium	High

@@ -1,0 +1,282 @@
+Module 4 – Introduction to DBMS
+
+1. Introduction to SQL
+
+Theory Answers
+
+1. What is SQL?
+SQL (Structured Query Language) is a standard language used to create, manage, and manipulate data in relational databases. It is essential because it allows users to store, retrieve, update, and control data efficiently.
+
+2. Difference between DBMS and RDBMS
+DBMS stores data as files, while RDBMS stores data in tables with relationships. RDBMS supports constraints, normalization, and SQL.
+
+3. Role of SQL in relational databases
+SQL is used to define structure (DDL), manipulate data (DML), retrieve data (DQL), control access (DCL), and manage transactions (TCL).
+
+4. Key features of SQL
+
+- Easy to learn
+- Standardized language
+- Supports data security
+- Handles large datasets
+- Supports transactions
+
+Lab Exercises
+
+sql
+CREATE DATABASE school_db;
+USE school_db;
+
+CREATE TABLE students (
+  student_id INT PRIMARY KEY,
+  student_name VARCHAR(50),
+  age INT,
+  class VARCHAR(10),
+  address VARCHAR(100)
+);
+
+INSERT INTO students VALUES
+(1,'Amit',11,'6A','Delhi'),
+(2,'Riya',10,'5B','Mumbai'),
+(3,'Karan',12,'7A','Pune'),
+(4,'Sneha',11,'6B','Chennai'),
+(5,'Rahul',13,'8A','Kolkata');
+
+SELECT * FROM students;
+
+
+
+ 2. SQL Syntax
+
+ Theory Answers
+
+1. Components of SQL syntax
+Keywords, clauses, expressions, operators, and statements.
+
+2. SELECT structure
+
+sql
+SELECT column_name FROM table_name WHERE condition;
+
+
+3. Role of clauses
+Clauses filter, sort, group, and limit data.
+
+ Lab Exercises
+
+sql
+SELECT student_name, age FROM students;
+SELECT * FROM students WHERE age > 10;
+
+ 3. SQL Constraints
+
+ Theory Answers
+
+1. Constraints
+Rules applied to table columns. Types: PRIMARY KEY, FOREIGN KEY, NOT NULL, UNIQUE, CHECK, DEFAULT.
+
+2. Primary vs Foreign Key
+Primary key uniquely identifies a record. Foreign key links tables.
+
+3. NOT NULL & UNIQUE
+NOT NULL prevents empty values, UNIQUE prevents duplicates.
+
+ Lab Exercises
+
+sql
+CREATE TABLE teachers (
+  teacher_id INT PRIMARY KEY,
+  teacher_name VARCHAR(50) NOT NULL,
+  subject VARCHAR(50) NOT NULL,
+  email VARCHAR(50) UNIQUE
+);
+
+ALTER TABLE students
+ADD teacher_id INT,
+ADD CONSTRAINT fk_teacher FOREIGN KEY (teacher_id)
+REFERENCES teachers(teacher_id);
+
+
+
+
+ 4. DDL Commands
+
+ Theory
+
+DDL defines database structure using CREATE, ALTER, DROP.
+
+ Lab
+
+sql
+CREATE DATABASE university_db;
+
+CREATE TABLE courses (
+  course_id INT PRIMARY KEY,
+  course_name VARCHAR(50),
+  course_credits INT
+);
+
+ 5. ALTER Command
+
+ Theory
+
+Used to modify table structure.
+
+ Lab
+
+sql
+ALTER TABLE courses ADD course_duration INT;
+ALTER TABLE courses DROP course_credits;
+
+ 6. DROP Command
+
+ Theory
+
+Removes database objects permanently.
+
+ Lab
+
+sql
+DROP TABLE teachers;
+DROP TABLE students;
+
+
+
+
+ 7. DML Commands
+
+ Theory
+
+INSERT adds data, UPDATE modifies data, DELETE removes data.
+
+ Lab
+
+sql
+INSERT INTO courses VALUES (1,'DBMS',6),(2,'OS',5),(3,'CN',4);
+UPDATE courses SET course_duration=60 WHERE course_id=1;
+DELETE FROM courses WHERE course_id=3;
+
+
+
+
+ 8. DQL
+
+ Theory
+
+SELECT retrieves data. WHERE filters, ORDER BY sorts.
+
+ Lab
+
+sql
+SELECT * FROM courses;
+SELECT * FROM courses ORDER BY course_duration DESC;
+SELECT * FROM courses LIMIT 2;
+
+
+
+
+ 9. DCL
+
+ Theory
+
+GRANT gives permissions, REVOKE removes them.
+
+ Lab
+
+sql
+GRANT SELECT ON courses TO user1;
+REVOKE INSERT ON courses FROM user1;
+GRANT INSERT ON courses TO user2;
+
+ 10. TCL
+
+ Theory
+
+COMMIT saves changes, ROLLBACK undoes changes.
+
+ Lab
+
+sql
+COMMIT;
+ROLLBACK;
+SAVEPOINT sp1;
+ROLLBACK TO sp1;
+
+ 11. SQL Joins
+
+ Theory
+
+Joins combine data from multiple tables.
+
+ Lab
+
+sql
+SELECT e.name, d.dept_name
+FROM employees e
+INNER JOIN departments d ON e.dept_id=d.dept_id;
+
+SELECT d.dept_name, e.name
+FROM departments d
+LEFT JOIN employees e ON d.dept_id=e.dept_id;
+
+ 12. GROUP BY
+
+ Theory
+
+Groups rows for aggregate functions.
+
+ Lab
+
+sql
+SELECT dept_id, COUNT(*) FROM employees GROUP BY dept_id;
+SELECT dept_id, AVG(salary) FROM employees GROUP BY dept_id;
+
+ 13. Stored Procedure
+
+ Theory
+
+Stored procedures are precompiled SQL blocks.
+
+ Lab
+
+sql
+CREATE PROCEDURE getEmployees(IN dept INT)
+BEGIN
+  SELECT * FROM employees WHERE dept_id=dept;
+END;
+
+ 14. SQL Views
+
+ Theory
+
+Views are virtual tables.
+
+ Lab
+
+sql
+CREATE VIEW emp_view AS
+SELECT e.name, d.dept_name FROM employees e JOIN departments d;
+
+ 15. Triggers
+
+ Theory
+
+Triggers execute automatically on events.
+
+ Lab
+
+sql
+CREATE TRIGGER emp_update
+BEFORE UPDATE ON employees
+FOR EACH ROW SET NEW.last_modified = NOW();
+
+ 16–23. PL/SQL, Cursors & Savepoints
+
+PL/SQL extends SQL with variables, loops, conditions, and cursors.
+
+sql
+DECLARE total NUMBER;
+BEGIN
+  SELECT COUNT(*) INTO total FROM employees;
+  DBMS_OUTPUT.PUT_LINE(total);
+END;
